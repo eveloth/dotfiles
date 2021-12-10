@@ -90,7 +90,7 @@ window:
   #
   # Override the variant of the GTK theme. Commonly supported values are `dark`
   # and `light`. Set this to `None` to use the default theme variant.
-  #gtk_theme_variant: None
+  gtk_theme_variant: dark
 
 #scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -110,7 +110,7 @@ window:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    #family: monospace
+    #family: Mononoki Nerd Font
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -121,7 +121,7 @@ window:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    #family: Mononoki Nerd Font
 
     # The `style` can be specified to pick a specific face.
     #style: Bold
@@ -132,7 +132,7 @@ window:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    #family: Mononoki Nerd Font
 
     # The `style` can be specified to pick a specific face.
     #style: Italic
@@ -178,10 +178,9 @@ window:
 colors:
   # Default colors
   primary:
-    background: '#1d1f21'
-    foreground: '#c5c8c6'
-
-    # Bright and dim foreground colors
+    background: '#0A0E14'
+    foreground: '#B3B1AD'
+        # Bright and dim foreground colors
     #
     # The dimmed foreground color is calculated automatically if it is not
     # present. If the bright foreground color is not set, or
@@ -266,26 +265,26 @@ colors:
   #  background: CellForeground
 
   # Normal colors
-  #normal:
-  #  black:   '#1d1f21'
-  #  red:     '#cc6666'
-  #  green:   '#b5bd68'
-  #  yellow:  '#f0c674'
-  #  blue:    '#81a2be'
-  #  magenta: '#b294bb'
-  #  cyan:    '#8abeb7'
-  #  white:   '#c5c8c6'
+  normal:
+    black:   '#01060E'
+    red:     '#EA6C73'
+    green:   '#91B362'
+    yellow:  '#F9AF4F'
+    blue:    '#53BDFA'
+    magenta: '#FAE994'
+    cyan:    '#90E1C6'
+    white:   '#C7C7C7'
 
   # Bright colors
-  #bright:
-  #  black:   '#666666'
-  #  red:     '#d54e53'
-  #  green:   '#b9ca4a'
-  #  yellow:  '#e7c547'
-  #  blue:    '#7aa6da'
-  #  magenta: '#c397d8'
-  #  cyan:    '#70c0b1'
-  #  white:   '#eaeaea'
+  bright:
+    black:   '#686868'
+    red:     '#F07178'
+    green:   '#C2D94C'
+    yellow:  '#FFB454'
+    blue:    '#59C2FF'
+    magenta: '#FFEE99'
+    cyan:    '#95E6CB'
+    white:   '#FFFFFF'
 
   # Dim colors
   #

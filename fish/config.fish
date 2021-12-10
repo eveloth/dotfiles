@@ -22,6 +22,7 @@ alias chfish='vim ~/.config/fish/config.fish'
 #---Fun---
 
 alias rrun='cmatrix -ab -C red'
+alias brun='cmatrix -ab -C blue'
 
 
 neofetch

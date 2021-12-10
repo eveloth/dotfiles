@@ -1,15 +1,14 @@
 Config { font = "xft:MononokiNerdFont:pixelsize=16:antialias=true:hitning=true"
        , additionalFonts = ["xft:Font Awesome 5 Free Solid:pixelsize=16"]
-       , bgColor = "#282a36"
-       , fgColor = "#f8f8f2"
-       , position = TopSize L 100 30
+       , bgColor = "#0A0E14"
+       , fgColor = "#b3b1ad"
+       , position = TopSize C 100 24
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
        , commands = [ Run Network "wlan0" ["-t","<fn=1>\xf1eb</fn> <rx>KB|<tx>KB","-L","0","-H","32","--normal","green","--high","red"] 10
                     , Run Cpu ["-t", " <fn=1>\xf108</fn> [<total>%]","-H","50","--normal","yellow","--high","red"] 10
                     , Run Memory ["-t","<fn=1>\xf2db</fn> [<usedratio>%]"] 10
-                    , Run Swap [] 10
                     , Run Com "uname" ["-o"] "" 36000
     		    , Run Date "%b %d %Y %H:%M" "date" 50
                     , Run Com "echo" ["<fn=1>\xf242</fn>"] "batticon" 3600
@@ -17,5 +16,5 @@ Config { font = "xft:MononokiNerdFont:pixelsize=16:antialias=true:hitning=true"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#8d1be6>%cpu%</fc> | <fc=#e7e719>%memory%</fc> * <fc=#e7e719>%swap%</fc> | <fc=#ee9a00>%wlan0%</fc> }{ <fc=#ee9a00>%date%</fc> | %uname% | %batticon% %battery% "
+       , template = "<fc=#8d1be6>%cpu%</fc> | <fc=#e7e719>%memory%</fc> | <fc=#ee9a00>%wlan0%</fc> }{ <fc=#ee9a00>%date%</fc> | %uname% | %batticon% %battery% "
        }
