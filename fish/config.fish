@@ -1,3 +1,18 @@
+# 
+# ███████  █████  ██   ██      ██████  ███████ 
+#  ██      ██   ██  ██ ██      ██    ██ ██      
+#  █████   ███████   ███       ██    ██ ███████ 
+#  ██      ██   ██  ██ ██      ██    ██      ██ 
+#  ██      ██   ██ ██   ██      ██████  ███████ 
+# 
+#----------------------------------------------
+#----------------------------------------------
+# Fish configuration file                    --
+#                                            --
+# FAX OS, 14/XII 2021, Moscow                --
+#----------------------------------------------
+#----------------------------------------------
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
@@ -26,5 +41,6 @@ alias brun='cmatrix -ab -C blue'
 
 
 neofetch
+theme_gruvbox dark 
 
 starship init fish | source
