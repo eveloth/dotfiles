@@ -1,3 +1,10 @@
+--
+-- ███████  █████  ██   ██      ██████  ███████ 
+-- ██      ██   ██  ██ ██      ██    ██ ██      
+-- █████   ███████   ███       ██    ██ ███████ 
+-- ██      ██   ██  ██ ██      ██    ██      ██ 
+-- ██      ██   ██ ██   ██      ██████  ███████ 
+  
 ----------------------------------------------------------------
 -- FAX OS Xmonad Comfiguration, 9/XII 2021, Moscow -------------
 ----------------------------------------------------------------
@@ -22,10 +29,11 @@ import XMonad.Hooks.ManageDocks
 
 -- Layout
 
-import XMonad.Layout.Spacing
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Spacing
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -58,6 +66,10 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 myNormalBorderColor  = "#dddddd"
 myFocusedBorderColor = "#ff5f1f"
 
+mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
+
+
 ----------------------------------------------------------------
 --------------------------KEYBINDINGS---------------------------
 ----------------------------------------------------------------
@@ -65,7 +77,7 @@ myFocusedBorderColor = "#ff5f1f"
 myKeys :: [(String, X ())]
 myKeys =
 
-    [ 
+	[ 
 
       ("M-S-<Return>", spawn myTerminal) -- launch a terminal
 
@@ -121,20 +133,6 @@ myKeys =
     ]
     -- ++
 
-    -- mod-[1..9], Switch to workspace N
-    -- mod-shift-[1..9], Move client to workspace N
-    -- [((m .|. modm, k), windows $ f i)
-    --  | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-    --  , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    -- ++
-
-    -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-    -- [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-    --  | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-    --  , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-
-
 ----------------------------------------------------------------
 -----------------------MOUSE BINDINGS---------------------------
 ----------------------------------------------------------------
@@ -181,6 +179,7 @@ myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
     , className =? "qutebrowser"    --> doShift ( myWorkspaces !! 1 )
+    , className =? "firefox"        --> doShift ( myWorkspaces !! 1 )
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
 
@@ -208,6 +207,7 @@ myStartupHook = do
 ------------------------------XMONAD---------------------------
 ----------------------------------------------------------------
 
+main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar -x -0 /home/eveloth/.config/xmobar/xmobarrc"
   xmonad $ docks defaults
@@ -227,7 +227,7 @@ defaults = def {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = spacingRaw False (Border 7 7 7 7) True (Border 7 7 7 7) True $ myLayout,
+        layoutHook         = mySpacing 7 $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = myLogHook,

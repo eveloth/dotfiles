@@ -1,6 +1,6 @@
 Config { font = "xft:MononokiNerdFont:pixelsize=16:antialias=true:hitning=true"
        , additionalFonts = ["xft:Font Awesome 5 Free Solid:pixelsize=16"]
-       , bgColor = "#0A0E14"
+       , bgColor = "#282828"
        , fgColor = "#b3b1ad"
        , position = TopSize C 100 24
        , lowerOnStart = True
