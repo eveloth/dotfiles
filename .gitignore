@@ -1,19 +1,14 @@
 # ignore unnecessary configs
 
 /autostart/*
+al-test
 /btop/*
 /dconf/*
-/deepin/*
 /fontconfig/*
-/gtk-2.0/*
-/gtk-3.0/*
 /htop/*
-mimeapps.list
 /pulse/*
-QtProject.conf
 /qutebrowser/*
-/redshift/*
-Trolltech.conf
+/tg/*
 user-dirs.dirs
 user-dirs.locale
 /yay/*

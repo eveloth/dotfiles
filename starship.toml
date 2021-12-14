@@ -80,5 +80,5 @@ style = "bright-white"
 disabled = false
 
 [username]
-style_user = "bold purple"
+style_user = "bold green"
 show_always = true
