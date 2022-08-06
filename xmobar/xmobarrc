@@ -1,20 +1,103 @@
-Config { font = "xft:MononokiNerdFont:pixelsize=16:antialias=true:hitning=true"
-       , additionalFonts = ["xft:Font Awesome 5 Free Solid:pixelsize=16"]
-       , bgColor = "#282828"
-       , fgColor = "#b3b1ad"
-       , position = TopSize C 100 24
-       , lowerOnStart = True
-       , hideOnStart = False
-       , allDesktops = True
-       , commands = [ Run Network "wlan0" ["-t","<fn=1>\xf1eb</fn> <rx>KB|<tx>KB","-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Cpu ["-t", " <fn=1>\xf108</fn> [<total>%]","-H","50","--normal","yellow","--high","red"] 10
-                    , Run Memory ["-t","<fn=1>\xf2db</fn> [<usedratio>%]"] 10
-                    , Run Com "uname" ["-o"] "" 36000
-    		    , Run Date "%b %d %Y %H:%M" "date" 50
-                    , Run Com "echo" ["<fn=1>\xf242</fn>"] "batticon" 3600
-                    , Run BatteryP ["BAT0"] ["-t", "[<left>%]"] 360
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = "<fc=#8d1be6>%cpu%</fc> | <fc=#e7e719>%memory%</fc> | <fc=#ee9a00>%wlan0%</fc> }{ <fc=#ee9a00>%date%</fc> | %uname% | %batticon% %battery% "
-       }
+Config { 
+
+   -- appearance
+     font 		 = "xft:MononokiNerdFont:pixelsize=20:antialias=true:hitning=true"
+   , bgColor     = "#1b1b1d"
+   , fgColor     = "#acacac"
+   , alpha       = 245
+   , position    = Static { xpos = 16 , ypos = 7 , width = 2526 , height = 40 }
+--   , position    = TopSize C 99 42
+   , border      = FullB
+   , borderColor = "#101010"
+   , borderWidth = 2
+   , textOffset  = 28
+
+   -- layout
+   , sepChar =  "%"   -- delineator between plugin names and straight text
+   , alignSep = "}{"  -- separator between left-right alignment
+   , template = " <action=`kitty -e htop`>%multicpu%</action> | %memory% | %dynnetwork% | %UnsafeStdinReader%}{ %default:Master%|| %UUDD% | %date% || %kbd% "
+
+   -- general behavior
+   , lowerOnStart =     False    -- send to bottom of window stack on start
+   , hideOnStart =      False   -- start with window unmapped (hidden)
+   , allDesktops =      False    -- show on all desktops
+   , overrideRedirect = True    -- set the Override Redirect flag (Xlib)
+   , pickBroadest =     False   -- choose widest display (multi-monitor)
+   , persistent =       True    -- enable/disable hiding (True = disabled)
+
+   -- plugins
+   --   Numbers can be automatically colored according to their value. xmobar
+   --   decides color based on a three-tier/two-cutoff system, controlled by
+   --   command options:
+   --     --Low sets the low cutoff
+   --     --High sets the high cutoff
+   --
+   --     --low sets the color below --Low cutoff
+   --     --normal sets the color between --Low and --High cutoffs
+   --     --High sets the color above --High cutoff
+   --
+   --   The --template option controls how the plugin is displayed. Text
+   --   color can be set by enclosing in <fc></fc> tags. For more details
+   --   see http://projects.haskell.org/xmobar/#system-monitor-plugins.
+   , commands = 
+
+        -- weather monitor
+        [ Run Weather "UUDD" [ "--template", "<fc=#4ebce5><tempC></fc>°C | <fc=#4ebce5><rh></fc>%"
+                             ] 36000
+
+        -- network activity monitor (dynamic interface resolution)
+        , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+                             , "--Low"      , "1000"       -- units: KB/s
+                             , "--High"     , "5000"       -- units: KB/s
+                             , "--low"      , "#74eb4c"
+                             , "--normal"   , "#fcc224"
+                             , "--high"     , "#f8761d"
+                             ] 10
+
+        -- cpu activity monitor
+        , Run MultiCpu       [ "--template" , "CPU: <total>%"
+                             , "--Low"      , "50"         -- units: %
+                             , "--High"     , "85"         -- units: %
+                             , "--low"      , "#74eb4c"
+                             , "--normal"   , "#fcc224"
+                             , "--high"     , "#f8761d"
+                             ] 10
+
+        -- cpu core temperature monitor
+        , Run CoreTemp       [ "--template" , "Temp: <core0>°C|<core1>°C"
+                             , "--Low"      , "70"        -- units: °C
+                             , "--High"     , "80"        -- units: °C
+                             , "--low"      , "#74eb4c"
+                             , "--normal"   , "#fcc224"
+                             , "--high"     , "#f8761d"
+                             ] 50
+                          
+        -- memory usage monitor
+        , Run Memory         [ "--template" ,"Mem: <usedratio>%"
+                             , "--Low"      , "20"        -- units: %
+                             , "--High"     , "90"        -- units: %
+                             , "--low"      , "#74eb4c"
+                             , "--normal"   , "#fcc224"
+                             , "--high"     , "#f8761d"
+                             ] 10
+
+		, Run UnsafeStdinReader
+
+		, Run Volume "default" "Master" ["--template", "<volume>% <status>"
+										, "--"
+										, "--on" 		, "[on] "
+										, "--onc"	    , "#f64319"
+										] 1
+
+
+
+        -- time and date indicator 
+        --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
+        , Run Date           "<fc=#fcc224>%e %B %Y [%a] %R</fc>" "date" 10
+
+        -- keyboard layout indicator
+        , Run Kbd            [ ("us"         , "<fc=#CB0000>US</fc>")
+                             , ("ru"         , "<fc=#ff5f1f>RU</fc>")
+                             ]
+        ]
+   }

@@ -6,7 +6,7 @@
 -- ██      ██   ██ ██   ██      ██████  ███████ 
   
 ----------------------------------------------------------------
--- FAX OS Xmonad Comfiguration, 9/XII 2021, Moscow -------------
+-- FAX OS Xmonad Configuration, 6/VIII 2022, Moscow -------------
 ----------------------------------------------------------------
 
 ----------------------------------------------------------------
@@ -26,6 +26,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 -- Hooks
 
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.DynamicLog
 
 -- Layout
 
@@ -34,6 +35,7 @@ import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
+import XMonad.Actions.NoBorders
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -43,10 +45,10 @@ import qualified Data.Map        as M
 ----------------------------------------------------------------
 
 myTerminal :: String
-myTerminal = "alacritty" 
+myTerminal = "kitty" 
 
 myBrowser :: String
-myBrowser = "qutebrowser"
+myBrowser = "firefox"
 
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
@@ -61,10 +63,10 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces    = ["main","web","dev"] ++ map show [4..9]
 
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff5f1f"
+myNormalBorderColor  = "#747474"
+myFocusedBorderColor = "#f02d4e"
 
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
@@ -99,6 +101,8 @@ myKeys =
 
     , ("M-b", spawn myBrowser)
 
+    , ("M-o", spawn "obsidian")
+
     , ("M-k", windows W.focusUp  ) -- Move focus to the previous window
 
     , ("M-m", windows W.focusMaster  ) -- Move focus to the master window
@@ -115,15 +119,26 @@ myKeys =
 
     , ("M-t", withFocused $ windows . W.sink) -- Push window back into tiling
 
+    -- SOUND KEYS
+	
+    , ("M-<Page_Up>", spawn "amixer -q sset Master 5%+")
+
+    , ("M-<Page_Down>", spawn "amixer -q sset Master 5%-")
+
+    -- Networking
+	
+    , ("M-<End>", spawn "nmcli c u \"altair\"")
+
+    , ("M-<Home>", spawn "nmcli c d \"altair\"")
+
     -- , ("M-," sendMessage (IncMasterN 1)) -- Increment the number of windows in the master area
 
     -- , ("M-.", sendMessage (IncMasterN (-1))) -- Deincrement the number of windows in the master area
 
     , ("M-<Return>",    toggleWindowSpacingEnabled
                      >> toggleScreenSpacingEnabled
-                     >> (sendMessage $ Toggle NOBORDERS)
+                     >> withFocused toggleBorder
                      >> (sendMessage ToggleStruts) ) -- Fullscreen mode 
-
     , ("M-S-q", io (exitWith ExitSuccess)) -- Quit xmonad
 
     , ("M-q", spawn "xmonad --recompile; xmonad --restart") -- Restart xmonad
@@ -178,22 +193,21 @@ myLayout = avoidStruts $ mkToggle (single NOBORDERS) tiled ||| Mirror tiled ||| 
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
-    , className =? "qutebrowser"    --> doShift ( myWorkspaces !! 1 )
     , className =? "firefox"        --> doShift ( myWorkspaces !! 1 )
     , resource  =? "desktop_window" --> doIgnore
+    , resource  =? "rider" 			--> doFloat
     , resource  =? "kdesktop"       --> doIgnore ]
 
 ----------------------------------------------------------------
 ---------------------------EVENT HOOK---------------------------
 ----------------------------------------------------------------
-
 myEventHook = mempty
 
 ----------------------------------------------------------------
 -----------------------------LOG HOOK---------------------------
 ----------------------------------------------------------------
 
-myLogHook = return ()
+-- myLogHook = return ()
 
 ----------------------------------------------------------------
 ---------------------------ON STARTUP---------------------------
@@ -209,10 +223,11 @@ myStartupHook = do
 
 main :: IO ()
 main = do
-  xmproc <- spawnPipe "xmobar -x -0 /home/eveloth/.config/xmobar/xmobarrc"
-  xmonad $ docks defaults
+  xmproc0 <- spawnPipe "xmobar -x 0 /home/eveloth/.config/xmobar/xmobarrc"
+  xmproc1 <- spawnPipe "xmobar -x 1 /home/eveloth/.config/xmobar/xmobarrc"
+  xmonad $ docks $ defaults xmproc0 xmproc1
 
-defaults = def {
+defaults xmproc0 xmproc1 = def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -227,10 +242,17 @@ defaults = def {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = mySpacing 7 $ myLayout,
+        layoutHook         = mySpacing 8 $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = myLogHook,
+        logHook            = dynamicLogWithPP xmobarPP
+		    { ppOutput = \x -> hPutStrLn xmproc0 x
+						    >> hPutStrLn xmproc1 x
+		    , ppTitle = shorten 60
+			, ppCurrent = xmobarColor "#f64319" ""
+			--, ppExtras = [windowCount]
+			, ppOrder = \(ws:l:t:ex) -> [ws]++ex++[t]
+		    },
         startupHook        = myStartupHook
     } `additionalKeysP` myKeys
 
@@ -242,8 +264,7 @@ help :: String
 help = unlines ["The default modifier key is 'alt'. Default keybindings:",
     "",
     "-- launching and killing programs",
-    "mod-Shift-Enter  Launch xterminal",
-    "mod-p            Launch dmenu",
+    "mod-Shift-Enter  Launch xterminal", "mod-p            Launch dmenu",
     "mod-Shift-p      Launch gmrun",
     "mod-Shift-c      Close/kill the focused window",
     "mod-Space        Rotate through the available layout algorithms",
@@ -281,8 +302,6 @@ help = unlines ["The default modifier key is 'alt'. Default keybindings:",
     "-- Workspaces & screens",
     "mod-Shift-[1..9]   Move client to workspace N",
     "mod-{w,e,r}        Switch to physical/Xinerama screens 1, 2, or 3",
-    "mod-Shift-{w,e,r}  Move client to screen 1, 2, or 3",
-    "",
     "-- Mouse bindings: default actions bound to mouse events",
     "mod-button1  Set the window to floating mode and move by dragging",
     "mod-button2  Raise the window to the top of the stack",
