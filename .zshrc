@@ -1,8 +1,13 @@
 # Exporting
 
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/v:$PATH"
 export ZSHPLUG=$HOME/shells/zsh
 export TERM=xterm-256color
 export _JAVA_AWT_WM_NONREPARENTING=1
+export QT_SCALING_FACTOR=1.5
+export ZSH_WAKATIME_PROJECT_DETECTION=true
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -73,6 +78,11 @@ alias ..='cd ..'
 alias cl='clear'
 alias sun='shutdown now'
 alias vim='nvim'
+alias systatus='systemctl status'
+alias senable='systemctl enable --now'
+alias systart='systemctl start'
+alias systop='systemctl stop'
+alias syrestart='systemctl restart'
 
 # }}}
 
@@ -80,6 +90,7 @@ alias vim='nvim'
 
 source $ZSHPLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSHPLUG/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSHPLUG/zsh-wakatime/zsh-wakatime.plugin.zsh
 
 # }}}
 

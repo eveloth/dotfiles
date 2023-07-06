@@ -1,16 +1,16 @@
 Config { 
 
    -- appearance
-     font 		 = "xft:MononokiNerdFont:pixelsize=20:antialias=true:hitning=true"
+     font        = "Martian Mono Light 14"	 
    , bgColor     = "#1b1b1d"
    , fgColor     = "#acacac"
-   , alpha       = 245
-   , position    = Static { xpos = 16 , ypos = 7 , width = 2526 , height = 40 }
---   , position    = TopSize C 99 42
+   , alpha       = 255
+   , position    = Static { xpos = 16 , ypos = 7 , width = 2526 , height = 42 }
+ --, position    = TopSize C 99 42
    , border      = FullB
    , borderColor = "#101010"
-   , borderWidth = 2
-   , textOffset  = 28
+   , borderWidth = 1
+   , textOffset  = 3
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
@@ -18,10 +18,10 @@ Config {
    , template = " <action=`kitty -e htop`>%multicpu%</action> | %memory% | %dynnetwork% | %UnsafeStdinReader%}{ %default:Master%|| %UUDD% | %date% || %kbd% "
 
    -- general behavior
-   , lowerOnStart =     False    -- send to bottom of window stack on start
+   , lowerOnStart =     True    -- send to bottom of window stack on start
    , hideOnStart =      False   -- start with window unmapped (hidden)
-   , allDesktops =      False    -- show on all desktops
-   , overrideRedirect = True    -- set the Override Redirect flag (Xlib)
+   , allDesktops =      False   -- show on all desktops
+   , overrideRedirect = True   -- set the Override Redirect flag (Xlib)
    , pickBroadest =     False   -- choose widest display (multi-monitor)
    , persistent =       True    -- enable/disable hiding (True = disabled)
 

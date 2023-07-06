@@ -1,4 +1,3 @@
---
 -- ███████  █████  ██   ██      ██████  ███████ 
 -- ██      ██   ██  ██ ██      ██    ██ ██      
 -- █████   ███████   ███       ██    ██ ███████ 
@@ -6,7 +5,7 @@
 -- ██      ██   ██ ██   ██      ██████  ███████ 
   
 ----------------------------------------------------------------
--- FAX OS Xmonad Configuration, 6/VIII 2022, Moscow -------------
+-- FAX OS Xmonad Configuration, 10/VIII 2022, Moscow -----------
 ----------------------------------------------------------------
 
 ----------------------------------------------------------------
@@ -27,6 +26,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageHelpers
 
 -- Layout
 
@@ -63,7 +63,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
-myWorkspaces    = ["main","web","dev"] ++ map show [4..9]
+myWorkspaces    = ["main","web","dev", "chat", "games", "media"] ++ map show [7..9]
 
 myNormalBorderColor  = "#747474"
 myFocusedBorderColor = "#f02d4e"
@@ -102,6 +102,26 @@ myKeys =
     , ("M-b", spawn myBrowser)
 
     , ("M-o", spawn "obsidian")
+
+    , ("M-r r", spawn "rider &")
+
+    , ("M-r j", spawn "jetbrains-toolbox &")
+
+    , ("M-r d", spawn "datagrip")
+
+    , ("M-r f", spawn "thunar")
+
+    , ("M-r t", spawn "telegram-desktop")
+
+    , ("M-r e", spawn "exodus")
+
+    , ("M-r q", spawn "qbittorrent")
+
+    , ("M-r p", spawn "postman")
+
+    , ("M-r s", spawn "steam")
+
+    , ("M-r h", spawn "haruna")
 
     , ("M-k", windows W.focusUp  ) -- Move focus to the previous window
 
@@ -191,12 +211,23 @@ myLayout = avoidStruts $ mkToggle (single NOBORDERS) tiled ||| Mirror tiled ||| 
 ----------------------------------------------------------------
 
 myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
-    , className =? "firefox"        --> doShift ( myWorkspaces !! 1 )
-    , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "rider" 			--> doFloat
-    , resource  =? "kdesktop"       --> doIgnore ]
+    [ className =? "MPlayer"       				 --> doFloat
+    , className =? "Gimp"          				 --> doFloat
+    , className =? "Thunar"          			 --> doCenterFloat
+    , title 	=? "Media viewer"	  			 --> doFloat
+    , className =? "firefox"        	  		 --> doShift "web"
+    , className =? "haruna"	        	  		 --> doShift "media"
+    , className =? "TelegramDesktop"			 --> doShift "chat"
+    , resource  =? "desktop_window" 		 	 --> doIgnore
+    , title		=? "splash"		 				 --> doShift "dev"
+    , title		=? "Welcome to JetBrains Rider"	 --> doShift "dev"
+    , title 	=? "JetBrains Toolbox"			 --> doShift "dev"
+    , className	=? "JetBrains Toolbox"			 --> doShift "dev"
+    , className	=? "jetbrains-toolbox"			 --> doShift "dev"
+    , title		=? "Steam"						 --> doShift "games"
+    , title 	=? "splash"		 				 --> doFloat
+    , title 	=? "VLC media player"			 --> doCenterFloat
+    , resource  =? "kdesktop"       			 --> doIgnore ]
 
 ----------------------------------------------------------------
 ---------------------------EVENT HOOK---------------------------
