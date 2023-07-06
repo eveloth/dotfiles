@@ -52,6 +52,8 @@ let mapleader=";"					" Set mapleader key to ';', this will allow us to create s
 map <leader>r ddp				
 " ';+d' to duplicate the string
 map <leader>d yyp				
+" This copies a line w/o a '\n'
+map yil 0y$
 " This turns spellchecker on
 map <leader>c :setlocal spell!<CR>
 " This resets the search
@@ -83,6 +85,7 @@ Plug 'tpope/vim-surround'
 Plug 'sainnhe/gruvbox-material'
 Plug 'preservim/nerdtree'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'ollykel/v-vim'
 call plug#end()
 
 " Customize themes
