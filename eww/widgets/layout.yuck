@@ -1,0 +1,13 @@
+(defpoll current-layout
+ :interval '100ms'
+ 'scripts/layout.sh peej-lumberjack')
+
+(defwidget layout[]
+  (box
+    :class "layout"
+    (label
+     :text {matches(current-layout.layout, "Ru") ? "RU" : "EN"})
+    (image 
+      :class "lang_img"
+      :image-width 20
+      :path {matches(current-layout.layout, "Ru") ? "assets/lang/ru.svg" : "assets/lang/en.svg"})))

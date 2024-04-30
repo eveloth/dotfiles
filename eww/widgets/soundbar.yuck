@@ -1,0 +1,17 @@
+(defpoll volume
+ :initial "N/A"
+ :interval "100ms"
+ 'scripts/volume.sh')
+
+(defwidget soundbar []
+ (box 
+   :class "volume soundbar"
+   :space-evenly false
+   (label 
+     :text "" 
+     :class "soundbar_icon")
+   (scale 
+     :value volume 
+     :min 0 
+     :max 100 
+     :orientation "h")))

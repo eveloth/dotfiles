@@ -1,0 +1,38 @@
+* {
+  all: unset;
+  font-family: BerkeleyMono Nerd Font;
+  font-size: 18px;
+}
+
+.clock {
+  letter-spacing: 0.1rem;
+}
+
+.lang_img {
+  margin-left: 5px;
+}
+
+.soundbar {
+  font-family: "Font Awesome 6 Free";
+}
+
+.soundbar_icon {
+  margin-right: 5px;
+}
+
+.volume scale trough {
+  all: unset;
+  background-color: #6e6e6e;
+  border-radius: 5px;
+  min-height: 22px;
+  min-width: 100px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.volume scale trough highlight {
+  all: unset;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
