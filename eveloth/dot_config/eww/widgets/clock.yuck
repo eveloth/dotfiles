@@ -1,0 +1,9 @@
+(defpoll time
+  :interval "1s"
+  :initial `date +'{"hour":"%H","min":"%M","sec":"%S"}'`
+  `date +'{"hour": "%H", "min":"%M","sec":"%S"}'`)
+
+(defwidget clock []
+  (label 
+    :class "clock"
+    :text "${time.hour}::${time.min}::${time.sec}"))

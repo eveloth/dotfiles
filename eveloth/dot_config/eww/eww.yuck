@@ -1,0 +1,28 @@
+(include "widgets/clock.yuck")
+(include "widgets/layout.yuck")
+(include "widgets/soundbar.yuck")
+
+(defwindow bar
+  :monitor 0
+  :geometry (geometry 
+              :x "0%"
+              :y "1.5%"
+              :width "118%" 
+              :height "2%"
+              :anchor "top center")
+  :stacking "bg"
+  :exclusive true
+  (content))
+
+(defwidget content[]
+  (box 
+    :space-evenly true
+    (box)
+    (clock)
+    (box 
+      :halign "end"
+      :space-evenly false
+      (soundbar)
+      (layout)
+      )))
+
