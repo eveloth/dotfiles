@@ -1,0 +1,11 @@
+alias cp='cp -v'
+alias mv='mv -v'
+alias cl='clear'
+alias sun='loginctl poweroff'
+
+#alias vim='nvim'
+alias lg='lazygit'
+
+alias ip='ip -color'
+alias ls='eza'
+alias la='eza -lah --group-directories-first'

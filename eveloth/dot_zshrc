@@ -1,0 +1,37 @@
+# Sources all required configs
+sconfig(){
+  ZCONFIG='/home/eveloth/.config/zsh'
+  if [ -r $ZCONFIG/$1 ]; then
+    . "$ZCONFIG/$1"
+  else
+    print "$ZCONFIG/$1 not found"
+  fi
+}
+
+export TERM=xterm-256color
+
+sconfig 'compinstall'
+sconfig 'opts'
+sconfig 'alias'
+
+typeset -U path 
+path=( ~/go/bin ~/.local/bin ~/.cargo/bin ~/.dotnet/tools ~/.vector/bin $path)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ $- != *i* ]] && return
+
+# PROMPT
+
+export PS1='%~ %(3L.+.)%m%# '
+
+eval "$(starship init zsh)"
+eval "$(direnv hook zsh)"
+
+[[ $- != *i* ]] && return
+
+pfetch
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
