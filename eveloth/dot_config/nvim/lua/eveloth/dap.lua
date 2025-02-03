@@ -35,6 +35,11 @@ M.config = function()
 		{ "<leader>du", ui.toggle, desc = "Open dap UI" },
 		{ "<leader>de", ui.eval, desc = "Evaluate" },
 		{ "<leader><F1>", dap.continue, desc = "Continue" },
+		{ "<leader><F2>", dap.step_over, desc = "Step over" },
+		{ "<leader><F3>", dap.step_into, desc = "Step into" },
+		{ "<leader><F4>", dap.step_out, desc = "Step out" },
+		{ "<leader><F5>", dap.restart, desc = "Restart" },
+		{ "<leader><F6>", dap.stop, desc = "Stop" },
 	})
 end
 
