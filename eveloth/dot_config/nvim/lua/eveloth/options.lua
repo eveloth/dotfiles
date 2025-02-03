@@ -49,3 +49,7 @@ opt.pumblend = 10
 vim.cmd([[set iskeyword+=-]]) -- this will treat words like 'lua-binds' like a word (w) not (W)
 
 vim.cmd("set whichwrap+=<,>,[,],h,l") -- this will allow both arrows and h and l to go to the previous line etc.
+
+vim.filetype.add({
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+})
