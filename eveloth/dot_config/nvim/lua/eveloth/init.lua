@@ -16,7 +16,7 @@ spec("eveloth.fzf")
 -- ui
 spec("eveloth.lualine")
 spec("eveloth.dressing")
-spec("eveloth.noice")
+--spec("eveloth.noice")
 spec("eveloth.toggleterm")
 
 -- code
