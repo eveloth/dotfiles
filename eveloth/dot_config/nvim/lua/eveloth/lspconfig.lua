@@ -125,6 +125,8 @@ function M.config()
 			capabilities = M.common_capabilities(),
 		}
 
+		opts.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
 		local require_ok, settings = pcall(require, "eveloth.lspsettings." .. server)
 		if require_ok then
 			opts = vim.tbl_deep_extend("force", settings, opts)
