@@ -12,6 +12,7 @@ spec("eveloth.whichkey")
 spec("eveloth.telescope")
 spec("eveloth.nvimtree")
 spec("eveloth.fzf")
+spec("eveloth.mini")
 
 -- ui
 spec("eveloth.lualine")

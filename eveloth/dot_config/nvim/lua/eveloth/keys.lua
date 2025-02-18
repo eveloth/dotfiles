@@ -43,3 +43,7 @@ keymap("x", "p", [["_dP]])
 -- Go to the begging and to the end easily
 keymap({ "n", "o", "x" }, "<s-h>", "^", opts)
 keymap({ "n", "o", "x" }, "<s-l>", "g_", opts)
+
+-- Drop selection
+keymap({ "n", "o", "x" }, "<C-_>", ":noh<CR>", opts)
+
