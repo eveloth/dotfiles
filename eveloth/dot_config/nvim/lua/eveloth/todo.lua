@@ -11,7 +11,7 @@ M.config = function()
 
   local wk = require("which-key")
   wk.add({
-    {"<leader>fw", "<cmd>TodoTelescope<cr>", decs = "Find TODOs"}
+    {"<leader>fw", "<cmd>TodoTelescope<cr>", desc = "Find TODOs"}
   })
 end
 

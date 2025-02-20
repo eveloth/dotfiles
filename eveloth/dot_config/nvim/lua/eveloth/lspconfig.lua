@@ -4,6 +4,7 @@ local M = {
 	dependencies = {
 		{
 			"folke/neodev.nvim",
+			"nvim-telescope/telescope.nvim",
 		},
 	},
 }
@@ -50,6 +51,10 @@ function M.config()
 		{ "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
 		{ "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
 		{ "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
+		{ "<leader>ld", "<cmd>Telescope diagnostics<cr>", desc = "Diagnosics" },
+		{ "<leader>lsf", "<cmd>Telescope lsp_document_symbols symbols=function,method<cr>", desc = "Functions" },
+		{ "<leader>lss", "<cmd>Telescope lsp_document_symbols symbols=struct,class<cr>", desc = "Structs & classes" },
+		{ "<leader>lsv", "<cmd>Telescope lsp_document_symbols symbols=variable<cr>", desc = "Variables" },
 		{
 			"<leader>rf",
 			"<cmd>lua vim.lsp.buf.format({async = true, filter = function(client) return client.name ~= 'typescript-tools' end})<cr>",

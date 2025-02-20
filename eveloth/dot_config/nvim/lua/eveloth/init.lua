@@ -35,6 +35,8 @@ spec("eveloth.ionide")
 spec("eveloth.gonvim")
 spec("eveloth.todo")
 spec("eveloth.dap")
+spec("eveloth.trouble")
+spec("eveloth.nvim-lint")
 --spec("eveloth.dap-go")
 --spec("eveloth.gitlab")
 
