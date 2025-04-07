@@ -23,6 +23,7 @@ spec("eveloth.toggleterm")
 -- code
 spec("eveloth.lspconfig")
 spec("eveloth.mason")
+spec("eveloth.neotest")
 spec("eveloth.cmp")
 spec("eveloth.yuck")
 spec("eveloth.none-ls")
@@ -37,8 +38,10 @@ spec("eveloth.todo")
 spec("eveloth.dap")
 spec("eveloth.trouble")
 spec("eveloth.nvim-lint")
+--spec("eveloth.roslyn")
 --spec("eveloth.dap-go")
 --spec("eveloth.gitlab")
 
 -- plugins
 require("eveloth.plugins")
+require("eveloth.colors")
