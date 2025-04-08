@@ -1,7 +1,5 @@
 local opt = vim.opt
 
-opt.winborder = 'single'
-
 opt.backup = false
 
 opt.shell = "/bin/zsh"

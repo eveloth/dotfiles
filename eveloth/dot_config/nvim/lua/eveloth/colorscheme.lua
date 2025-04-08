@@ -23,10 +23,20 @@ local M = {
 	{
 		"catppuccin/nvim",
 		lazy = false,
-    name = "catppuccin",
+		name = "catppuccin",
 		priority = 1000,
 		opts = {},
 	},
+	{ "neanias/everforest-nvim", version = false, lazy = false, priority = 1000 },
+	{ "ribru17/bamboo.nvim", lazy = false, priority = 1000 },
+	{
+		"0xstepit/flow.nvim",
+		lazy = false,
+		priority = 1000,
+		tag = "v2.0.2",
+		opts = {},
+	},
+	{ "oxfist/night-owl.nvim", lazy = false, priority = 1000 },
 }
 
 M.config = function() end
