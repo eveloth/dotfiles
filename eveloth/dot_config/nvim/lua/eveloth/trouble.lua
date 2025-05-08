@@ -13,8 +13,7 @@ local M = {
 
 M.config = function()
 	local trouble = require("trouble")
-	trouble.setup({
-	})
+	trouble.setup({})
 
 	local wk = require("which-key")
 	wk.add({

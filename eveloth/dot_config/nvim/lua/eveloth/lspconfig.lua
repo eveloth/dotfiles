@@ -74,6 +74,7 @@ function M.config()
 	local icons = require("eveloth.icons")
 
 	local servers = {
+    "pylsp",
 		"lua_ls",
 		"cssls",
 		"html",
@@ -87,6 +88,7 @@ function M.config()
 		"gopls",
 		"sqls",
 		"terraformls",
+    "jdtls"
 	}
 
 	local default_diagnostic_config = {
@@ -119,9 +121,8 @@ function M.config()
 		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
 	end
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-	vim.lsp.handlers["textDocument/signatureHelp"] =
-		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.hover({border = "rounded"})
+	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({border = "rounded"})
 	require("lspconfig.ui.windows").default_options.border = "rounded"
 
 	for _, server in pairs(servers) do
@@ -138,7 +139,7 @@ function M.config()
 		end
 
 		if server == "lua_ls" then
-			require("neodev").setup({})
+			require("neodev").setup()
 		end
 
 		lspconfig[server].setup(opts)

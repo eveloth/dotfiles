@@ -5,7 +5,6 @@ local M = {
 
 function M.config()
 	local wk = require("which-key")
-	local builtin = require("telescope.builtin")
 
 	wk.add({
 		{ "<leader>bb", "<cmd>Telescope buffers previewer=false<cr>", desc = "Find" },
