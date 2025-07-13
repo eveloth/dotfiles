@@ -15,7 +15,7 @@ sconfig 'opts'
 sconfig 'alias'
 
 typeset -U path 
-path=( ~/go/bin ~/.local/bin ~/.cargo/bin ~/.dotnet/tools ~/.vector/bin $path)
+path=( ~/go/bin ~/.local/bin ~/.cargo/bin ~/.dotnet/tools ~/.vector/bin ~/minio-binaries $path)
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

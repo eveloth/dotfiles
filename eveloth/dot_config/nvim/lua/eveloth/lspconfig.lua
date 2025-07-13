@@ -74,7 +74,7 @@ function M.config()
 	local icons = require("eveloth.icons")
 
 	local servers = {
-    "pylsp",
+    "basedpyright",
 		"lua_ls",
 		"cssls",
 		"html",
@@ -88,7 +88,8 @@ function M.config()
 		"gopls",
 		"sqls",
 		"terraformls",
-    "jdtls"
+    "jdtls",
+    "rust_analyzer"
 	}
 
 	local default_diagnostic_config = {
