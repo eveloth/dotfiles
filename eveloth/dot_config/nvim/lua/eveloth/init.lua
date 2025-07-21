@@ -29,6 +29,7 @@ spec("eveloth.lualine")
 spec("eveloth.dressing")
 spec("eveloth.noice")
 spec("eveloth.toggleterm")
+spec("eveloth.smear-cursor")
 
 -- code
 spec("eveloth.lspconfig")
