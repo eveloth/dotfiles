@@ -1,41 +1,72 @@
-# Sources all required configs
+# Uncomment this if you want to see all the commands executed as the shell starts.
+# -x means print commands and their arguments 
+# -e means abort on failure (only in unchecked context)
+# -u means fail if indefined variable is referenced
+# -o pipefail means short-circuit command pipeline if any command fails (otherwise such errors are masked)
+# see https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
+#
+# set -xeuo pipefail
+
+# Additional config files directory
+ZCONFIG='/home/eveloth/.config/zsh'
+
+# Sources all required configs.
+# This function accepts a filename as an argument and sources it if it exists,
+# which is my preferred way to split zsh configuration in multiple files.
 sconfig(){
-  ZCONFIG='/home/eveloth/.config/zsh'
-  if [ -r $ZCONFIG/$1 ]; then
-    . "$ZCONFIG/$1"
+  # Check if ZCONFIG is set. Note that -v syntax is not POSIX-compliant and will only work in zsh >= 5.3.
+  # Another way to do it is [ "${ZCONFIG}" ] || ZCONFIG='path-to-config'.
+  # This would be more readable as an if statement but we are here to flex, not to get the job done.
+  ! [[ -v ZCONFIG ]] || ZCONFIG='/home/eveloth/.config/zsh'
+  
+  FILENAME="${ZCONFIG}/${1}"
+
+  # If a given config file exists, source it with '.'
+  # While 'source' is a synonym for '.', the latter is the POSIX-compliant way of sourcing scripts.
+  # This script is not POSIX-compliant anyways but you have probably learnt something new, haven't you?
+  if [ -r $FILENAME ]; then
+    . $FILENAME
   else
-    print "$ZCONFIG/$1 not found"
+    print "$FILENAME not found"
   fi
 }
 
-export TERM=xterm-256color
+sconfig 'opts.sh'
+sconfig 'alias.sh'
+sconfig 'nvm.sh'
 
-sconfig 'compinstall'
-sconfig 'opts'
-sconfig 'alias'
-
+# For the arrays, in this case 'path', keep only the first occurence of each duplicated value.
+# This way if some path string is already added to the path it won't be added twice.
 typeset -U path 
-path=( ~/go/bin ~/.local/bin ~/.cargo/bin ~/.dotnet/tools ~/.vector/bin ~/minio-binaries $path)
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-[[ $- != *i* ]] && return
-
-# Set emacs mode
-
-bindkey -e
+path=( ~/dotnet ~/go/bin ~/.local/bin ~/.cargo/bin ~/.dotnet/tools ~/.vector/bin ~/minio-binaries $path )
 
 # PROMPT
+#
+mkdir -p ~/test/test
 
 export PS1='%~ %(3L.+.)%m%# '
 
-eval "$(starship init zsh)"
-eval "$(direnv hook zsh)"
+sconfig 'direnv.sh'
+sconfig 'starship.sh'
+sconfig 'asdf.sh'
 
+# Announce ourselves as a terminal that supports displaying 256 colors.
+# This is a bad practice, BTW. [https://blog.sanctum.geek.nz/term-strings/], but we do that nonetheless.
+export TERM=xterm-256color
+
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_ROOT=$HOME/dotnet
+
+# This checks if the shell is being run in the interactive mode.
+# '$-' is a variable that contains current shell options in a form of a compressed string ()
+# where 'i' denotes 'interactive'. Here we check whether that string *doesn't* contain 'i' in it,
+# and if not, we get 0, which results in logical AND to succeed and then return.
+# This is useful because we can skip i.e. pfetch execution when executing a single remote command via ssh,
+# where we don't have and don't need to have any cool shenanigans that are only here to flex anyways.
 [[ $- != *i* ]] && return
 
+sconfig 'compinstall.sh'
+
+# Execute pfetch, minimalistic neofetch alternative
 pfetch
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/bin/terraform terraform

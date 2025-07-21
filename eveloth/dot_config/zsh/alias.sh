@@ -11,6 +11,7 @@ alias ls='eza'
 alias la='eza -lah --group-directories-first'
 
 alias cm='chezmoi'
+alias cmc='chezmoi cd'
 alias cme='chezmoi edit'
 alias cmdi='chezmoi diff'
 alias cma='chezmoi apply'
