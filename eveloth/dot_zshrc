@@ -49,6 +49,7 @@ export PS1='%~ %(3L.+.)%m%# '
 sconfig 'direnv.sh'
 sconfig 'starship.sh'
 sconfig 'asdf.sh'
+sconfig 'mise.sh'
 
 # Announce ourselves as a terminal that supports displaying 256 colors.
 # This is a bad practice, BTW. [https://blog.sanctum.geek.nz/term-strings/], but we do that nonetheless.
@@ -64,6 +65,7 @@ export DOTNET_ROOT=$HOME/dotnet
 # This is useful because we can skip i.e. pfetch execution when executing a single remote command via ssh,
 # where we don't have and don't need to have any cool shenanigans that are only here to flex anyways.
 [[ $- != *i* ]] && return
+
 
 sconfig 'compinstall.sh'
 

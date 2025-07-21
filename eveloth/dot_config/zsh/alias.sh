@@ -3,7 +3,6 @@ alias mv='mv -v'
 alias cl='clear'
 alias sun='loginctl poweroff'
 
-#alias vim='nvim'
 alias lg='lazygit'
 
 alias ip='ip -color'
