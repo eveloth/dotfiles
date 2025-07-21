@@ -39,6 +39,13 @@ function M.config()
 
 	which_key.add({
 		{
+			"<leader>?",
+			function()
+        which_key.show()
+			end,
+			desc = "Write all",
+		},
+		{
 			"<leader>w",
 			function()
 				vim.cmd("silent! wa")

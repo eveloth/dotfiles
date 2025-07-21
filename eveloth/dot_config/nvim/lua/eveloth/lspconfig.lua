@@ -13,6 +13,7 @@ local function set_keymap()
 	local wk = require("which-key")
 	local telescope = require("telescope.builtin")
 	local lsp = vim.lsp.buf
+
 	wk.add({
 		{ "<leader>l", group = "LSP" },
 		{ "g", group = "Go to..." },
@@ -53,25 +54,21 @@ local function set_keymap()
 			desc = "Structs & classes",
 		},
 		{ "<leader>lsv", "<cmd>Telescope lsp_document_symbols symbols=variable<cr>", desc = "Variables" },
-	}, {
-		"<leader>rf",
-		lsp.format({
-			async = true,
-			filter = function(client)
-				return client.name ~= "typescript-tools"
-			end,
-		}),
-		desc = "Format",
-	}, {
-		"<leader>rc",
-		function()
-			require("conform").format()
-		end,
-		desc = "csharpier",
+		{ "<leader>rc", require("conform").format, desc = "csharpier" },
+		{
+			"<leader>rf",
+			lsp.format({
+				async = true,
+				filter = function(client)
+					return client.name ~= "typescript-tools"
+				end,
+			}),
+			desc = "Format",
+		},
 	})
 end
 
-M.on_attach = function(client, bufnr)
+M.on_attach = function(client, _)
 	set_keymap()
 
 	if client:supports_method("textDocument/inlayHint") then
@@ -91,7 +88,15 @@ M.toggle_inlay_hints = function()
 end
 
 function M.config()
-	local wk = require("which-key")
+  -- this overrides hover and it seems to be the only way to get it work consistently
+
+	local hover = vim.lsp.buf.hover
+	---@diagnostic disable-next-line: duplicate-set-field
+  vim.lsp.buf.hover = function()
+		hover({
+			border = "rounded",
+		})
+	end
 
 	local icons = require("eveloth.icons")
 
@@ -140,7 +145,6 @@ function M.config()
 
 	vim.diagnostic.config(default_diagnostic_config)
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" })
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" })
 	require("lspconfig.ui.windows").default_options.border = "rounded"
 
