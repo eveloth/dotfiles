@@ -1,3 +1,12 @@
+-- filter which-key warnings
+local orig_notify = vim.notify
+vim.notify = function(msg, level, opts)
+  if msg:match("which%-key") and level == vim.log.levels.WARN then
+    return
+  end
+  orig_notify(msg, level, opts)
+end
+
 require("eveloth.launch")
 require("eveloth.options")
 require("eveloth.keys")
@@ -38,7 +47,7 @@ spec("eveloth.todo")
 spec("eveloth.dap")
 spec("eveloth.trouble")
 spec("eveloth.nvim-lint")
---spec("eveloth.roslyn")
+spec("eveloth.roslyn")
 --spec("eveloth.dap-go")
 --spec("eveloth.gitlab")
 

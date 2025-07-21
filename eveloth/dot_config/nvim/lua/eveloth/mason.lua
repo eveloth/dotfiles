@@ -16,11 +16,14 @@ function M.config()
 		"yamlls",
 		"marksman",
 		"clangd",
-		"omnisharp",
 		"jdtls"
 	}
 
 	require("mason").setup({
+     registries = {
+        "github:mason-org/mason-registry",
+        "github:Crashdummyy/mason-registry",
+     },
 		ui = {
 			border = "rounded",
 		},

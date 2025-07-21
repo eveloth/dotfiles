@@ -9,20 +9,70 @@ local M = {
 	},
 }
 
-local function lsp_keymaps(bufnr)
-	local opts = { noremap = true, silent = true }
-	local keymap = vim.api.nvim_buf_set_keymap
-	keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover({border=\"rounded\"})<CR>", opts)
-	keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-	keymap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+local function set_keymap()
+	local wk = require("which-key")
+	local telescope = require("telescope.builtin")
+	local lsp = vim.lsp.buf
+	wk.add({
+		{ "<leader>l", group = "LSP" },
+		{ "g", group = "Go to..." },
+		{ "<leader>ls", group = "Search..." },
+		{ "gd", lsp.definition, desc = "Go to definition" },
+		{ "gi", lsp.implementation, desc = "Go to implementation" },
+		{ "gr", telescope.lsp_references, desc = "Go to references" },
+		{
+			"K",
+			function()
+				lsp.hover({ border = "rounded" })
+			end,
+			desc = "Hover",
+		},
+		{ mode = { "n", "v" }, { "<leader>la", lsp.code_action, desc = "Code Action" } },
+		{ "<leader>lh", require("eveloth.lspconfig").toggle_inlay_hints, desc = "Hints" },
+		{
+			"<leader>li",
+			function()
+				vim.cmd("LspInfo")
+			end,
+			desc = "Info",
+		},
+		{ "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next Diagnostic" },
+		{ "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
+		{ "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
+		{ "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
+		{ "<leader>lr", lsp.rename, desc = "Rename" },
+		{ "<leader>ld", telescope.diagnostics, desc = "Diagnosics" },
+		{
+			"<leader>lsf",
+			"<cmd>Telescope lsp_document_symbols symbols=function,method<cr>",
+			desc = "Functions",
+		},
+		{
+			"<leader>lss",
+			"<cmd>Telescope lsp_document_symbols symbols=struct,class<cr>",
+			desc = "Structs & classes",
+		},
+		{ "<leader>lsv", "<cmd>Telescope lsp_document_symbols symbols=variable<cr>", desc = "Variables" },
+	}, {
+		"<leader>rf",
+		lsp.format({
+			async = true,
+			filter = function(client)
+				return client.name ~= "typescript-tools"
+			end,
+		}),
+		desc = "Format",
+	}, {
+		"<leader>rc",
+		function()
+			require("conform").format()
+		end,
+		desc = "csharpier",
+	})
 end
 
 M.on_attach = function(client, bufnr)
-	lsp_keymaps(bufnr)
+	set_keymap()
 
 	if client:supports_method("textDocument/inlayHint") then
 		vim.lsp.inlay_hint.enable(true)
@@ -42,39 +92,11 @@ end
 
 function M.config()
 	local wk = require("which-key")
-	wk.add({
-		{ "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
-		{ "<leader>lh", "<cmd>lua require('eveloth.lspconfig').toggle_inlay_hints()<cr>", desc = "Hints" },
-		{ "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
-		{ "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next Diagnostic" },
-		{ "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
-		{ "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
-		{ "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
-		{ "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
-		{ "<leader>ld", "<cmd>Telescope diagnostics<cr>", desc = "Diagnosics" },
-		{ "<leader>lsf", "<cmd>Telescope lsp_document_symbols symbols=function,method<cr>", desc = "Functions" },
-		{ "<leader>lss", "<cmd>Telescope lsp_document_symbols symbols=struct,class<cr>", desc = "Structs & classes" },
-		{ "<leader>lsv", "<cmd>Telescope lsp_document_symbols symbols=variable<cr>", desc = "Variables" },
-		{
-			"<leader>rf",
-			"<cmd>lua vim.lsp.buf.format({async = true, filter = function(client) return client.name ~= 'typescript-tools' end})<cr>",
-			desc = "Format",
-		},
-		{ "<leader>rc", "<cmd>lua require('conform').format()<cr>", desc = "csharpier" },
-	})
 
-	wk.add({
-		{
-			{ "<leader>l", group = "LSP" },
-			{ "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", mode = "v" },
-		},
-	})
-
-	local lspconfig = require("lspconfig")
 	local icons = require("eveloth.icons")
 
 	local servers = {
-    "basedpyright",
+		"basedpyright",
 		"lua_ls",
 		"cssls",
 		"html",
@@ -84,12 +106,12 @@ function M.config()
 		"yamlls",
 		"marksman",
 		"clangd",
-		"omnisharp",
 		"gopls",
 		"sqls",
 		"terraformls",
-    "jdtls",
-    "rust_analyzer"
+		"jdtls",
+		"rust_analyzer",
+		"roslyn",
 	}
 
 	local default_diagnostic_config = {
@@ -118,12 +140,8 @@ function M.config()
 
 	vim.diagnostic.config(default_diagnostic_config)
 
-	for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config() or {}, "signs", "values") or {}) do
-		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
-	end
-
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.hover({border = "rounded"})
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({border = "rounded"})
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.hover({ border = "rounded" })
+	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = "rounded" })
 	require("lspconfig.ui.windows").default_options.border = "rounded"
 
 	for _, server in pairs(servers) do
@@ -143,7 +161,8 @@ function M.config()
 			require("neodev").setup()
 		end
 
-		lspconfig[server].setup(opts)
+		vim.lsp.enable(server)
+		vim.lsp.config[server] = opts
 
 		require("ionide").setup({
 			on_attach = M.on_attach,

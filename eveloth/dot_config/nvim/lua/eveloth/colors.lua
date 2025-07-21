@@ -1,3 +1,3 @@
-vim.cmd.colorscheme "e-ink"
+vim.cmd.colorscheme "bamboo"
 vim.opt.background = "dark"
 

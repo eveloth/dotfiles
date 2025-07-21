@@ -1,4 +1,5 @@
 return {
+  enabled = false,
 	cmd = { "dotnet", vim.fn.stdpath("data") .. "/mason/packages/omnisharp/libexec/OmniSharp.dll" },
 	handlers = {
 		["textDocument/definition"] = function(...)

@@ -3,9 +3,9 @@ local M = {
 }
 
 function M.config()
-
 	local which_key = require("which-key")
 	which_key.setup({
+		notify = false,
 		plugins = {
 			marks = true,
 			registers = true,
@@ -34,6 +34,16 @@ function M.config()
 		disable = {
 			buftypes = {},
 			filetypes = { "TelescopePrompt" },
+		},
+	})
+
+	which_key.add({
+		{
+			"<leader>w",
+			function()
+				vim.cmd("silent! wa")
+			end,
+			desc = "Write all",
 		},
 	})
 end
