@@ -2,10 +2,10 @@
 local orig_notify = vim.notify
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.notify = function(msg, level, opts)
-  if msg:match("which%-key") and level == vim.log.levels.WARN then
-    return
-  end
-  orig_notify(msg, level, opts)
+	if msg:match("which%-key") and level == vim.log.levels.WARN then
+		return
+	end
+	orig_notify(msg, level, opts)
 end
 
 require("eveloth.launch")
@@ -23,6 +23,7 @@ spec("eveloth.telescope")
 spec("eveloth.nvimtree")
 spec("eveloth.fzf")
 spec("eveloth.mini")
+spec("eveloth.oil")
 
 -- ui
 spec("eveloth.lualine")
