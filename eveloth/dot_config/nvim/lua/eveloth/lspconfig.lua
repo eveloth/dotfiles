@@ -119,6 +119,7 @@ function M.config()
     "jdtls",
     "rust_analyzer",
     "roslyn",
+    "zls",
   }
 
   local default_diagnostic_config = {

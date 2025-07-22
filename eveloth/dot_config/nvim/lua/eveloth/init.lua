@@ -51,6 +51,7 @@ spec("eveloth.dap")
 spec("eveloth.trouble")
 spec("eveloth.nvim-lint")
 spec("eveloth.roslyn")
+spec("eveloth.gitsigns")
 
 -- plugins
 require("eveloth.plugins")

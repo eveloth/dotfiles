@@ -41,9 +41,9 @@ function M.config()
 		{
 			"<leader>?",
 			function()
-        which_key.show()
+				which_key.show()
 			end,
-			desc = "Write all",
+			desc = "Help",
 		},
 		{
 			"<leader>w",

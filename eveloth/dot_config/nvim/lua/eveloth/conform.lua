@@ -7,6 +7,7 @@ M.config = function()
 		formatters_by_ft = {
 			cs = { "csharpier" },
 			rust = { "rustfmt", lsp_format = "fallback" },
+			lua = { "stylua" },
 		},
 		formatters = {
 			csharpier = {
