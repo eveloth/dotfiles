@@ -24,6 +24,7 @@ spec("eveloth.nvimtree")
 spec("eveloth.fzf")
 spec("eveloth.mini")
 spec("eveloth.oil")
+spec("eveloth.neoscroll")
 
 -- ui
 spec("eveloth.lualine")
@@ -52,6 +53,7 @@ spec("eveloth.trouble")
 spec("eveloth.nvim-lint")
 spec("eveloth.roslyn")
 spec("eveloth.gitsigns")
+spec("eveloth.easydotnet")
 
 -- plugins
 require("eveloth.plugins")

@@ -20,7 +20,21 @@ function M.config()
 			lualine_c = { "diagnostics" },
 			lualine_x = { "filetype" },
 			lualine_y = { "progress" },
-			lualine_z = {},
+			lualine_z = {
+				{
+          function ()
+            return "test"
+          end,
+					icon = { "", color = { fg = "#e7c664" } },
+					cond = function()
+						if not package.loaded.dap then
+							return false
+						end
+						local session = require("dap").session()
+						return session ~= nil
+					end,
+				},
+			},
 		},
 		extensions = { "quickfix", "man", "fugitive" },
 	})
