@@ -33,7 +33,8 @@ sconfig(){
 
 sconfig 'opts.sh'
 sconfig 'alias.sh'
-sconfig 'nvm.sh'
+
+sconfig 'zinit.sh'
 
 # For the arrays, in this case 'path', keep only the first occurence of each duplicated value.
 # This way if some path string is already added to the path it won't be added twice.
@@ -41,11 +42,9 @@ typeset -U path
 path=( ~/dotnet ~/go/bin ~/.local/bin ~/.cargo/bin ~/.dotnet/tools ~/.vector/bin ~/minio-binaries $path )
 
 # PROMPT
-#
-mkdir -p ~/test/test
-
 export PS1='%~ %(3L.+.)%m%# '
 
+sconfig 'nvm.sh'
 sconfig 'direnv.sh'
 sconfig 'starship.sh'
 sconfig 'asdf.sh'
@@ -56,7 +55,7 @@ sconfig 'mise.sh'
 export TERM=xterm-256color
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export DOTNET_ROOT=$HOME/dotnet
+export DOTNET_ROOT=${HOME/dotnet
 
 # This checks if the shell is being run in the interactive mode.
 # '$-' is a variable that contains current shell options in a form of a compressed string ()
@@ -72,3 +71,4 @@ sconfig 'compinstall.sh'
 # Execute pfetch, minimalistic neofetch alternative
 pfetch
 
+[ -f "/home/eveloth/.ghcup/env" ] && . "/home/eveloth/.ghcup/env" # ghcup-env

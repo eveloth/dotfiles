@@ -10,9 +10,9 @@ setup_completions_for(){
 
 zstyle :compinstall filename '/home/eveloth/.zshrc'
 
-setup_completions_for docker
+# setup_completions_for docker
 
-autoload -Uz compinit
-compinit
-autoload -U +X bashcompinit && bashcompinit
-#complete -o nospace -C /usr/bin/terraform terraform
+autoload -Uz +X compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+
