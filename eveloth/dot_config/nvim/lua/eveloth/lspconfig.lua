@@ -120,6 +120,7 @@ function M.config()
 		"rust_analyzer",
 		"roslyn",
 		"zls",
+		"hls",
 	}
 
 	local default_diagnostic_config = {
