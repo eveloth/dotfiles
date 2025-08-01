@@ -49,6 +49,7 @@ sconfig 'direnv.sh'
 sconfig 'starship.sh'
 sconfig 'asdf.sh'
 sconfig 'mise.sh'
+sconfig 'yc.sh'
 
 # Announce ourselves as a terminal that supports displaying 256 colors.
 # This is a bad practice, BTW. [https://blog.sanctum.geek.nz/term-strings/], but we do that nonetheless.
