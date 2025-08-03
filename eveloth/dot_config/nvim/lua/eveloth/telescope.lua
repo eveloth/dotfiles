@@ -1,29 +1,12 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
-	dependencies = { { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true } },
+	dependencies = {
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
+	},
 }
 
 function M.config()
 	local wk = require("which-key")
-
-	wk.add({
-		{ "<leader>bb", "<cmd>Telescope buffers previewer=false<cr>", desc = "Find" },
-		{ "<leader>fb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
-		{ "<leader>fc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
-		{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-		{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
-		{ "<leader>fl", "<cmd>Telescope resume<cr>", desc = "Last Search" },
-		{ "<leader>fp", "<cmd>lua require('telescope').extensions.projects.projects()<cr>", desc = "Projects" },
-		{ "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent File" },
-		{ "<leader>ft", "<cmd>Telescope live_grep<cr>", desc = "Find Text" },
-		--{
-		--	"<leader>fs",
-		--	function()
-		--		builtin.lsp_document_symbols({ symbols = { "method", "function" } })
-		--	end,
-		--	desc = "Find symbols",
-		--},
-	})
 
 	local icons = require("eveloth.icons")
 	local actions = require("telescope.actions")
@@ -131,6 +114,7 @@ function M.config()
 			},
 		},
 	})
+	require("telescope").load_extension("fzf")
 end
 
 return M

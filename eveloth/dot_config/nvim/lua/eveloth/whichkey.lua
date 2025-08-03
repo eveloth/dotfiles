@@ -52,6 +52,13 @@ function M.config()
 			end,
 			desc = "Write all",
 		},
+		{
+			"<leader>q",
+			function()
+				vim.cmd("silent! qa")
+			end,
+			desc = "Close",
+		},
 	})
 end
 

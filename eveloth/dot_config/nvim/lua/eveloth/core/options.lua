@@ -62,4 +62,5 @@ vim.cmd([[set iskeyword+=-]]) -- this will treat words like 'lua-binds' like a w
 
 vim.filetype.add({
 	pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+	extension = { use = "use" },
 })

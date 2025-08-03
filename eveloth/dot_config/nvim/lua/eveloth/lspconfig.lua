@@ -3,33 +3,33 @@ local M = {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		{
-			"folke/neodev.nvim",
-			"nvim-telescope/telescope.nvim",
+			"stevearc/conform.nvim",
+			"folke/snacks.nvim",
 		},
 	},
 }
 
+local toggle_inlay_hints = function()
+	local bufnr = vim.api.nvim_get_current_buf()
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr }))
+end
+
 local function set_keymap()
 	local wk = require("which-key")
-	local telescope = require("telescope.builtin")
+	local picker = require("snacks").picker
 	local lsp = vim.lsp.buf
+	local conform = require("conform")
 
 	wk.add({
 		{ "<leader>l", group = "LSP" },
+		{ "<leader>s", group = "Search..." },
 		{ "g", group = "Go to..." },
-		{ "<leader>ls", group = "Search..." },
-		{ "gd", lsp.definition, desc = "Go to definition" },
-		{ "gi", telescope.lsp_implementations, desc = "Go to implementation" },
-		{ "gr", telescope.lsp_references, desc = "Go to references" },
-		{
-			"K",
-			function()
-				lsp.hover({ border = "rounded" })
-			end,
-			desc = "Hover",
-		},
+		{ "gd", picker.lsp_definitions, desc = "Definitions" },
+		{ "gi", picker.lsp_implementations, desc = "Implementations" },
+		{ "gr", picker.lsp_references, desc = "References" },
+		{ "K", lsp.hover, desc = "Hover" },
 		{ mode = { "n", "v" }, { "<leader>la", lsp.code_action, desc = "Code Action" } },
-		{ "<leader>lh", require("eveloth.lspconfig").toggle_inlay_hints, desc = "Hints" },
+		{ "<leader>lh", toggle_inlay_hints, desc = "Hints" },
 		{
 			"<leader>li",
 			function()
@@ -37,24 +37,51 @@ local function set_keymap()
 			end,
 			desc = "Info",
 		},
-		{ "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "Next Diagnostic" },
-		{ "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
-		{ "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
-		{ "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix" },
-		{ "<leader>lr", lsp.rename, desc = "Rename" },
-		{ "<leader>ld", telescope.diagnostics, desc = "Diagnosics" },
 		{
-			"<leader>lsf",
-			"<cmd>Telescope lsp_document_symbols symbols=function,method<cr>",
+			"<leader>lj",
+			function()
+				vim.diagnostic.jump({ count = 1 })
+			end,
+			desc = "Next Diagnostic",
+		},
+		{
+			"<leader>lk",
+			function()
+				vim.diagnostic.jump({ count = -1 })
+			end,
+			desc = "Previous Diagnostic",
+		},
+		{ "<leader>ll", vim.lsp.codelens.run, desc = "CodeLens Action" },
+		{ "<leader>lr", lsp.rename, desc = "Rename" },
+		{ "<leader>ld", picker.diagnostics, desc = "Diagnosics" },
+		{
+			"<leader>ss",
+			picker.lsp_symbols,
 			desc = "Functions",
 		},
 		{
-			"<leader>lss",
-			"<cmd>Telescope lsp_document_symbols symbols=struct,class<cr>",
-			desc = "Structs & classes",
+			"<leader>sf",
+			function()
+				picker.lsp_symbols({ filter = { "Function", "Method" } })
+			end,
+			desc = "Functions",
 		},
-		{ "<leader>lsv", "<cmd>Telescope lsp_document_symbols symbols=variable<cr>", desc = "Variables" },
-		{ "<leader>rc", require("conform").format, desc = "csharpier" },
+		{
+			"<leader>sr",
+
+			function()
+				picker.lsp_symbols({ filter = { "Struct", "Class", "Enum", "Interface", "Trait" } })
+			end,
+			desc = "Type definitions",
+		},
+		{
+			"<leader>sv",
+			function()
+				picker.lsp_symbols({ filter = { "Variable", "Constant" } })
+			end,
+			desc = "Variables",
+		},
+		{ "<leader>rc", conform.format, desc = "Format" },
 		{
 			"<leader>rf",
 			function()
@@ -65,13 +92,16 @@ local function set_keymap()
 					end,
 				})
 			end,
-			desc = "Format",
+			desc = "Format (LSP-builtin)",
 		},
 	})
 end
 
 M.on_attach = function(client, _)
 	set_keymap()
+
+	-- Remove semantic tokens (doesn't seem to work, but I added it here not to forget later)
+	client.server_capabilities.semanticTokenProvider = nil
 
 	if client:supports_method("textDocument/inlayHint") then
 		vim.lsp.inlay_hint.enable(true)
@@ -84,14 +114,8 @@ function M.common_capabilities()
 	return capabilities
 end
 
-M.toggle_inlay_hints = function()
-	local bufnr = vim.api.nvim_get_current_buf()
-	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr }))
-end
-
 function M.config()
 	-- this overrides hover and it seems to be the only way to get it work consistently
-
 	local hover = vim.lsp.buf.hover
 	---@diagnostic disable-next-line: duplicate-set-field
 	vim.lsp.buf.hover = function()
@@ -118,9 +142,9 @@ function M.config()
 		"terraformls",
 		"jdtls",
 		"rust_analyzer",
-		"roslyn",
 		"zls",
 		"hls",
+		"roslyn_ls",
 	}
 
 	local default_diagnostic_config = {
@@ -163,10 +187,6 @@ function M.config()
 		local require_ok, settings = pcall(require, "eveloth.lspsettings." .. server)
 		if require_ok then
 			opts = vim.tbl_deep_extend("force", settings, opts)
-		end
-
-		if server == "lua_ls" then
-			require("neodev").setup()
 		end
 
 		vim.lsp.enable(server)

@@ -23,7 +23,6 @@ function M.config()
 		{ "<leader>tt", "<cmd>ToggleTerm direction=float<CR>", desc = "Floating terminal" },
 		{ "<leader>tt", "<cmd>ToggleTerm<CR>", desc = "Close terminal", mode = "t" },
 		{ "<leader>th", "<cmd>ToggleTerm direction=horizontal<CR>", desc = "Horizontal terminal" },
-		{ "<leader>tl", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", desc = "Lazygit" },
 	})
 
 	require("toggleterm").setup({

@@ -40,6 +40,7 @@ function M.config()
 			"svelte",
 			"vim",
 			"yuck",
+			"regex",
 		},
 		sync_install = false,
 		auto_install = true,
@@ -48,6 +49,22 @@ function M.config()
 		modules = {},
 		ignore_install = {},
 	})
+
+	local parsers = require("nvim-treesitter.parsers").get_parser_configs()
+
+	parsers.use = {
+		install_info = {
+			url = "~/repos/gentoo/tree-sitter-use/",
+			files = { "src/parser.c" },
+			branch = "main",
+		},
+		filetypes = "use",
+	}
+
+	vim.treesitter.language.register("use", "use")
+
+	vim.api.nvim_set_hl(0, "@set", { fg = "green" })
+	vim.api.nvim_set_hl(0, "@unset", { fg = "red" })
 end
 
 return M
