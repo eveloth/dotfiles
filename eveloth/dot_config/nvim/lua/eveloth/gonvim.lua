@@ -1,20 +1,15 @@
 local M = {
-  "ray-x/go.nvim",
-  dependencies = {  -- optional packages
-    "ray-x/guihua.lua",
-    "neovim/nvim-lspconfig",
-    "nvim-treesitter/nvim-treesitter",
-  },
-  event = {"CmdlineEnter"},
-  ft = {"go", 'gomod'},
+	"ray-x/go.nvim",
+	dependencies = { -- optional packages
+		"ray-x/guihua.lua",
+		"nvim-treesitter/nvim-treesitter",
+	},
+	event = { "CmdlineEnter" },
+	ft = { "go", "gomod" },
 }
 
 function M.config()
-  require("go").setup()
+	require("go").setup()
 end
 
 return M
-
-
-
-

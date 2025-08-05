@@ -4,16 +4,17 @@ local M = {
 }
 
 function M.config()
+	local wk = require("which-key")
+	local lint = require("lint")
+
+	lint.linters_by_ft = {
+		go = { "golangcilint" },
+	}
+
 	local events = {
 		"BufWritePost",
 		"BufReadPost",
 		"InsertLeave",
-	}
-
-	local wk = require("which-key")
-	local lint = require("lint")
-	lint.linters_by_ft = {
-		go = { "golangcilint" },
 	}
 
 	local groupName = "nvim-lint"
@@ -44,4 +45,5 @@ function M.config()
 		desc = "Lint",
 	})
 end
+
 return M

@@ -1,37 +1,18 @@
 local M = {
-	"williamboman/mason-lspconfig.nvim",
-	dependencies = {
-		"williamboman/mason.nvim",
-	},
+	"williamboman/mason.nvim",
 }
 
 function M.config()
-	local servers = {
-		"lua_ls",
-		"cssls",
-		"html",
-		"ts_ls",
-		"bashls",
-		"jsonls",
-		"yamlls",
-		"marksman",
-		"clangd",
-		"jdtls"
-	}
+	local mason = require("mason")
 
-	require("mason").setup({
-     registries = {
-        "github:mason-org/mason-registry",
-        "github:Crashdummyy/mason-registry",
-     },
+	mason.setup({
+		registries = {
+			"github:mason-org/mason-registry",
+			"github:Crashdummyy/mason-registry",
+		},
 		ui = {
 			border = "rounded",
 		},
-	})
-
-	require("mason-lspconfig").setup({
-		ensure_installed = servers,
-		automatic_installation = true,
 	})
 end
 
