@@ -1,6 +1,7 @@
 local M = {
 	"nvim-tree/nvim-tree.lua",
 	event = "VeryLazy",
+	dependencies = { "echasnovski/mini.icons", opts = {} },
 }
 
 function M.config()
@@ -9,11 +10,9 @@ function M.config()
 		{ "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Explorer" },
 	})
 
-	local icons = require("eveloth.icons")
-
 	require("nvim-tree").setup({
 		hijack_netrw = false,
-		sync_root_with_cwd = true,
+		sync_root_with_cwd = false,
 		view = {
 			relativenumber = true,
 		},
@@ -28,41 +27,10 @@ function M.config()
 			indent_markers = {
 				enable = false,
 				inline_arrows = true,
-				icons = {
-					corner = "└",
-					edge = "│",
-					item = "│",
-					none = " ",
-				},
 			},
 			icons = {
 				git_placement = "before",
 				padding = " ",
-				symlink_arrow = " ➛ ",
-				glyphs = {
-					default = icons.ui.Text,
-					symlink = icons.ui.FileSymlink,
-					bookmark = icons.ui.BookMark,
-					folder = {
-						arrow_closed = icons.ui.ChevronRight,
-						arrow_open = icons.ui.ChevronShortDown,
-						default = icons.ui.Folder,
-						open = icons.ui.FolderOpen,
-						empty = icons.ui.EmptyFolder,
-						empty_open = icons.ui.EmptyFolderOpen,
-						symlink = icons.ui.FolderSymlink,
-						symlink_open = icons.ui.FolderOpen,
-					},
-					git = {
-						unstaged = icons.git.FileUnstaged,
-						staged = icons.git.FileStaged,
-						unmerged = icons.git.FileUnmerged,
-						renamed = icons.git.FileRenamed,
-						untracked = icons.git.FileUntracked,
-						deleted = icons.git.FileDeleted,
-						ignored = icons.git.FileIgnored,
-					},
-				},
 			},
 			special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
 			symlink_destination = true,
@@ -80,14 +48,12 @@ function M.config()
 			show_on_open_dirs = true,
 			debounce_delay = 50,
 			severity = {
-				min = vim.diagnostic.severity.HINT,
+				min = vim.diagnostic.severity.WARN,
 				max = vim.diagnostic.severity.ERROR,
 			},
 			icons = {
-				hint = icons.diagnostics.BoldHint,
-				info = icons.diagnostics.BoldInformation,
-				warning = icons.diagnostics.BoldWarning,
-				error = icons.diagnostics.BoldError,
+				warning = " ",
+				error = " ",
 			},
 		},
 	})

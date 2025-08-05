@@ -40,18 +40,30 @@ M.config = function()
 		ui.close()
 	end
 
+	---@return boolean
+	local function show_dap_keys()
+		if not package.loaded.dap then
+			return false
+		end
+		local session = require("dap").session()
+		return session ~= nil
+	end
+
 	wk.add({
 		{ "<leader>d", group = "DAP" },
 		{ "<leader>db", dap.toggle_breakpoint, desc = "Add breakpoint at line" },
+		{ "<leader>dd", dap.continue, desc = "Continue or new" },
 		{ "<leader>du", ui.toggle, desc = "Toggle dap UI" },
-		{ "<leader>de", ui.eval, desc = "Evaluate" },
-		{ "<leader><F1>", dap.continue, desc = "Continue" },
-		{ "<leader><F2>", dap.step_over, desc = "Step over" },
-		{ "<leader><F3>", dap.step_into, desc = "Step into" },
-		{ "<leader><F4>", dap.step_out, desc = "Step out" },
-		{ "<leader><F5>", dap.close, desc = "Stop" },
-		{ "<leader><F6>", dap.restart, desc = "Restart" },
-		{ "<leader><F8>", dap.terminate, desc = "Terminate" },
+		{
+			cond = show_dap_keys,
+			{ "<leader>de", ui.eval, desc = "Evaluate" },
+			{ "<leader><F2>", dap.step_over, desc = "Step over" },
+			{ "<leader><F3>", dap.step_into, desc = "Step into" },
+			{ "<leader><F4>", dap.step_out, desc = "Step out" },
+			{ "<leader><F5>", dap.close, desc = "Stop" },
+			{ "<leader><F6>", dap.restart, desc = "Restart" },
+			{ "<leader><F8>", dap.terminate, desc = "Terminate" },
+		},
 	})
 end
 

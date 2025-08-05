@@ -24,7 +24,6 @@ M.config = function()
 		{ "<leader>na", "<cmd> lua require('neotest').run.run(vim.uv.cwd())<cr>", desc = "Run test" },
 		{ "<leader>ns", "<cmd> lua require('neotest').summary.toggle()<cr>", desc = "Toggle summary" },
 		{ "<leader>no", "<cmd> lua require('neotest').output_panel.toggle()<cr>", desc = "Toggle output" },
-		--{ "<leader>nw", "<cmd> lua require('neotest').watch.toggle(vim.fn.expand("%"))<cr>", desc = "Toggle watch" },
 	})
 end
 

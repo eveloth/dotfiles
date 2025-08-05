@@ -33,7 +33,7 @@ function M.config()
 		show_keys = false,
 		disable = {
 			buftypes = {},
-			filetypes = { "TelescopePrompt" },
+			filetypes = { "snacks_picker_input" },
 		},
 	})
 
@@ -53,11 +53,18 @@ function M.config()
 			desc = "Write all",
 		},
 		{
-			"<leader>q",
+			"<leader>qq",
+			function()
+				vim.cmd("silent! q")
+			end,
+			desc = "Close current",
+		},
+		{
+			"<leader>qa",
 			function()
 				vim.cmd("silent! qa")
 			end,
-			desc = "Close",
+			desc = "Close all",
 		},
 	})
 end

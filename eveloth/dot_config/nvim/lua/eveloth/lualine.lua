@@ -20,11 +20,12 @@ function M.config()
 			lualine_c = { "diagnostics" },
 			lualine_x = { "filetype" },
 			lualine_y = { "progress" },
+			-- this is my attempt to check if dap is working correctly, works bad, looks awful
 			lualine_z = {
 				{
-          function ()
-            return "test"
-          end,
+					function()
+						return "test"
+					end,
 					icon = { "", color = { fg = "#e7c664" } },
 					cond = function()
 						if not package.loaded.dap then
