@@ -14,5 +14,8 @@ zstyle :compinstall filename '/home/eveloth/.zshrc'
 
 autoload -Uz +X compinit && compinit
 autoload -Uz +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/bin/terraform terraform
+
+if ! [[ -v SKIP_COMPLETIONS ]]; then
+  complete -o nospace -C /usr/bin/terraform terraform
+fi
 

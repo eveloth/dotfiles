@@ -6,6 +6,10 @@
 # see https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 #
 # set -xeuo pipefail
+#
+# Uncomment this to enable profiler and also uncomment zprof at the end of this file
+#
+# zmodload zsh/zprof
 
 # Additional config files directory
 ZCONFIG='/home/eveloth/.config/zsh'
@@ -66,10 +70,11 @@ export DOTNET_ROOT=${HOME}/dotnet
 # where we don't have and don't need to have any cool shenanigans that are only here to flex anyways.
 [[ $- != *i* ]] && return
 
-
 sconfig 'compinstall.sh'
 
 # Execute pfetch, minimalistic neofetch alternative
-pfetch
+[[ -v SKIP_PFETCH ]] || pfetch
 
 [ -f "/home/eveloth/.ghcup/env" ] && . "/home/eveloth/.ghcup/env" # ghcup-env
+
+# zprof
