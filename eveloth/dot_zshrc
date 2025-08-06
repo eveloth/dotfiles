@@ -48,10 +48,8 @@ path=( ~/dotnet ~/go/bin ~/.local/bin ~/.cargo/bin ~/.dotnet/tools ~/.vector/bin
 # PROMPT
 export PS1='%~ %(3L.+.)%m%# '
 
-sconfig 'nvm.sh'
 sconfig 'direnv.sh'
 sconfig 'starship.sh'
-sconfig 'asdf.sh'
 sconfig 'mise.sh'
 sconfig 'yc.sh'
 
