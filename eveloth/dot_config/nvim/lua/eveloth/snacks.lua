@@ -23,8 +23,9 @@ local function toggleTerminal(snacks)
 	end
 end
 
----@class Snacks.picker.Config
+---@class snacks.picker.Config
 local pickerConfig = {
+	ui_select = true,
 	matcher = {
 		frecency = true, -- freq bonus
 	},
@@ -71,8 +72,16 @@ function M.config()
 	local wk = require("which-key")
 
 	wk.add({
+		{
+			"<leader>.",
+			function()
+				Snacks.scratch()
+			end,
+			desc = "Toggle scratch",
+		},
 		{ "<leader>f", group = "Find..." },
 		{ "<leader>ff", snacks.picker.files, desc = "Files" },
+		{ "<leader>fs", Snacks.scratch.select, desc = "Scratches" },
 		{ "<leader>ft", snacks.picker.grep, desc = "Grep" },
 		{ "<leader>fc", snacks.picker.colorschemes, desc = "Colorschemes" },
 		{ "<leader>fb", snacks.picker.git_branches, desc = "Git branches" },

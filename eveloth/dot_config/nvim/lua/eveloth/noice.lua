@@ -12,7 +12,7 @@ local M = {
 M.config = function()
 	require("notify").setup({
 		timeout = 500,
-		merge_duplicates = true,
+		merge_duplicates = false,
 	})
 	require("noice").setup({
 		lsp = {

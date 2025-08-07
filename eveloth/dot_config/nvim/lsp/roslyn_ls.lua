@@ -72,8 +72,10 @@ local function roslyn_handlers()
 					vim.notify(err.message, vim.log.levels.ERROR, { title = "roslyn_ls" })
 				end
 				if response then
+					---@diagnostic disable-next-line: empty-block, unused-local
 					for _, v in ipairs(response) do
-						vim.notify(v.message, vim.log.levels.INFO, { title = "roslyn_ls" })
+						-- remove spam
+						-- vim.notify(v.message, vim.log.levels.INFO, { title = "roslyn_ls" })
 					end
 				end
 			end)
