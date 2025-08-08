@@ -279,7 +279,8 @@ load_plugins {
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-// theme "dracula"
+
+theme "kanagawa"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -298,7 +299,7 @@ default_mode "normal"
 // The name of the default layout to load on startup
 // Default: "default"
 // 
-// default_layout "compact"
+default_layout "eveloth"
  
 // The folder in which Zellij will look for layouts
 // (Requires restart)
@@ -387,13 +388,13 @@ default_mode "normal"
 // otherwise this will error if such a session exists.
 // Default: <RANDOM>
 // 
-// session_name "My singleton session"
+session_name "cm"
  
 // When `session_name` is provided, attaches to that session
 // if it is already running or creates it otherwise.
 // Default: false
 // 
-// attach_to_session true
+attach_to_session true
  
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
