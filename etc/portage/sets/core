@@ -1,0 +1,108 @@
+#####################
+### KERNEL & BOOT ###
+#####################
+
+sys-kernel/gentoo-kernel-bin
+sys-kernel/installkernel
+sys-kernel/linux-firmware
+virtual/dist-kernel
+
+sys-boot/efibootmgr
+sys-boot/refind
+
+app-admin/sysklogd
+app-admin/eclean-kernel
+
+############
+### DISK ###
+############
+
+sys-fs/xfsprogs
+sys-fs/dosfstools
+sys-fs/udiskie
+sys-fs/fuse
+sys-apps/nvme-cli
+sys-apps/hdparm
+sys-apps/sdparm
+sys-apps/usbutils
+app-cdr/cdrtools
+
+#############
+### SOUND ###
+#############
+
+media-video/pipewire
+media-video/wireplumber
+media-sound/pulseaudio
+
+###########
+### NET ###
+###########
+
+net-wireless/bluez
+net-misc/networkmanager
+net-vpn/networkmanager-fortisslvpn
+net-vpn/networkmanager-openconnect
+net-vpn/networkmanager-openvpn
+sys-apps/ethtool
+net-misc/ntp
+net-analyzer/nmap
+net-analyzer/traceroute
+net-dns/bind-tools
+net-firewall/ipset
+net-misc/telnet-bsd
+net-misc/whois
+
+###############
+### PORTAGE ###
+###############
+
+app-portage/eix
+app-eselect/eselect-repository
+app-portage/euses
+
+# Package history, currently compiling etc.
+app-portage/genlop
+
+app-portage/gentoolkit
+app-portage/mirrorselect
+app-portage/portage-lostfiles
+app-portage/portage-utils
+
+# Check for live packages updates
+app-portage/smart-live-rebuild
+
+# Allows querying database for packages and files not installed
+app-portage/pfl
+
+# Allows querying for invalid / outdated use flags
+app-portage/portpeek
+
+############
+### MISC ###
+############
+
+dev-vcs/git
+
+app-admin/sudo
+app-shells/zsh
+app-text/tree dev-debug/strace
+sys-apps/man-pages-posix
+
+sys-process/cronie
+
+app-misc/ca-certificates
+
+app-arch/rar
+app-arch/unrar
+
+app-editors/vim
+
+-- That's for wayland root
+sys-auth/seatd
+
+app-admin/chezmoi
+app-admin/gopass
+
+sys-process/htop
+
