@@ -13,6 +13,7 @@
 
 # Additional config files directory
 ZCONFIG='/home/eveloth/.config/zsh'
+ZFUNC="${ZCONFIG}/functions"
 
 # Sources all required configs.
 # This function accepts a filename as an argument and sources it if it exists,
@@ -37,6 +38,7 @@ sconfig(){
 
 sconfig 'opts.sh'
 sconfig 'alias.sh'
+sconfig 'functions/nmtoggle.sh'
 
 sconfig 'zinit.sh'
 

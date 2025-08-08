@@ -28,3 +28,5 @@ alias eupdate='sudo emerge -avuND --keep-going @world'
 alias ts='tree-sitter'
 alias tsg='tree-sitter generate'
 alias tsp='tree-sitter parse'
+
+alias zzz='zellij'
