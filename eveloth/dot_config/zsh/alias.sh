@@ -24,9 +24,11 @@ alias kda='kubectl delete all --all'
 
 alias esync='sudo eix-sync'
 alias eupdate='sudo emerge -avuND --keep-going @world'
+alias ecleanup='sudo emerge -avc'
 
 alias ts='tree-sitter'
 alias tsg='tree-sitter generate'
 alias tsp='tree-sitter parse'
 
 alias zzz='zellij'
+alias qemu='qemu-system-x86_64'
