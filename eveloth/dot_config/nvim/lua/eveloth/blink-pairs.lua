@@ -5,7 +5,6 @@ local M = {
 }
 
 function M.config()
-	--this all doesn't seem to work properly but I'm leaving it here
 	local pairs = require("blink.pairs")
 
 	---@module 'blink.pairs'
@@ -17,8 +16,8 @@ function M.config()
 		},
 		highlights = {
 			enabled = true,
-			priority = 99,
-			-- In particular, these are unavailable through :Inscpect which is really stange
+			-- If less tresitter will override rainbow brackets
+			priority = 101,
 			groups = {
 				"BlinkPairsOrange",
 				"BlinkPairsPurple",
