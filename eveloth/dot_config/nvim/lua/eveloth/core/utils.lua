@@ -8,7 +8,7 @@ vim.notify = function(msg, level, opts)
 	orig_notify(msg, level, opts)
 end
 
-vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "FocusGained" }, {
 	command = "if mode() != 'c' | checktime | endif",
 	pattern = { "*" },
 })

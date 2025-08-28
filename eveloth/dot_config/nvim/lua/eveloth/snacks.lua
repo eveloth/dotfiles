@@ -49,7 +49,7 @@ function M.config()
 		picker = pickerConfig,
 		-- I should research on how to make this fast enough, this doesn't work
 		scroll = {
-			enabled = true,
+			enabled = false,
 			animate = {
 				duration = { step = 13, total = 175 },
 				easing = "linear",

@@ -37,6 +37,7 @@ opt.pumblend = 10
 opt.cmdheight = 1
 opt.numberwidth = 2
 opt.showmode = false
+opt.colorcolumn = "120"
 
 -- FILE HANDLING
 opt.backup = false
@@ -61,6 +62,6 @@ opt.splitright = true -- force all vertical splits to go to the right of current
 vim.cmd([[set iskeyword+=-]]) -- this will treat words like 'lua-binds' like a word (w) not (W)
 
 vim.filetype.add({
-	pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+	pattern = { [".*/hypr/.*.conf"] = "hyprlang" },
 	extension = { use = "use" },
 })

@@ -38,12 +38,17 @@ spec("eveloth.trouble")
 spec("eveloth.gitsigns")
 spec("eveloth.gonvim")
 spec("eveloth.yuck")
---
+
 -- Not that it did work in the first place and also it brings lspconfig with it
 --spec("eveloth.ionide")
 -- If you want to add another 3 minutes to your workflow and meditate
 -- go ahead and enable this. This is extremely useful but extremely slow
 --spec("eveloth.easydotnet")
+
+spec("eveloth.dbee")
+
+spec("eveloth.lush")
+spec("eveloth.oklch")
 
 -- install plugins
 require("eveloth.plugins")
@@ -53,3 +58,6 @@ require("eveloth.core.colors")
 
 -- configure lsp (prob should change the name)
 require("eveloth.lspconfig")
+
+-- local i = require("eveloth.vulkan")
+-- i.set_colorscheme()
