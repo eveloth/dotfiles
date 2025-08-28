@@ -42,7 +42,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		-- disable semanticTokensProvider thus fixing tree-sitter
-		client.server_capabilities.semanticTokensProvider = nil
+		-- UPD I changed my mind
+		-- client.server_capabilities.semanticTokensProvider = nil
 
 		-- disable embedded hover since we have better one
 		pcall(vim.keymap.del, "n", "K", { buffer = bufnr })
