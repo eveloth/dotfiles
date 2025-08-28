@@ -102,7 +102,6 @@ function LspKeymap:set_keymap()
 		{ "<leader>sf", lsp_symbols(picker, { "Function", "Method" }), desc = "Functions" },
 		{ "<leader>sr", lsp_symbols(picker, { "Class, Struct, Interface, Trait" }), desc = "Type definitions" },
 		{ "<leader>sv", lsp_symbols(picker, { "Variable", "Constant" }), desc = "Variables" },
-		{ "<leader>rc", conform.format, desc = "Format" },
 		{ "<leader>rf", conform.format, desc = "Format (backwards compat)" },
 	})
 end

@@ -1,9 +1,14 @@
 local M = {
 	"stevearc/conform.nvim",
+	dependencies = {
+		"folke/which-key.nvim",
+	},
 }
 
 M.config = function()
-	require("conform").setup({
+	local conform = require("conform")
+
+	conform.setup({
 		format_on_save = {
 			timeout_ms = 500,
 			lsp_format = "fallback",
@@ -13,6 +18,8 @@ M.config = function()
 			rust = { "rustfmt", lsp_format = "fallback" },
 			lua = { "stylua" },
 			haskell = { "fourmolu" },
+			kdl = { "kdlfmt" },
+			hcl = { "hcl" },
 		},
 		formatters = {
 			csharpier = {
@@ -20,6 +27,11 @@ M.config = function()
 				args = { "--write-stdout" },
 			},
 		},
+	})
+
+	local wk = require("which-key")
+	wk.add({
+		{ "<leader>rc", conform.format, desc = "Format" },
 	})
 end
 
