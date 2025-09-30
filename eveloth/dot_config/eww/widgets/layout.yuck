@@ -1,6 +1,6 @@
 (defpoll current-layout
  :interval '100ms'
- 'scripts/layout.sh peej-lumberjack')
+ 'scripts/layout.sh tweetys-wild-thinking-lotus-58-glow-keyboard')
 
 (defwidget layout[]
   (box
