@@ -10,6 +10,7 @@ local diagnosticOpts = {
 			[vim.diagnostic.severity.HINT] = " ",
 		},
 	},
+
 	severity_sort = true,
 	float = {
 		border = "rounded",
@@ -84,6 +85,7 @@ local servers = {
 	"rust_analyzer",
 	"zls",
 	"hls",
+	"emmet_language_server",
 }
 
 for _, server in pairs(servers) do

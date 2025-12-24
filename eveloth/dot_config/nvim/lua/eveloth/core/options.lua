@@ -37,7 +37,7 @@ opt.pumblend = 10
 opt.cmdheight = 1
 opt.numberwidth = 2
 opt.showmode = false
-opt.colorcolumn = "120"
+opt.colorcolumn = "120,121"
 
 -- FILE HANDLING
 opt.backup = false
