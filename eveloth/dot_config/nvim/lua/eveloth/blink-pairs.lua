@@ -12,7 +12,7 @@ function M.config()
 	opts = {
 		mappings = {
 			enabled = true,
-			disabled_filetypes = { "snacks_picker_input" },
+			disabled_filetypes = { "snacks_picker_input", "markdown" },
 		},
 		highlights = {
 			enabled = true,
