@@ -32,3 +32,9 @@ alias tsp='tree-sitter parse'
 
 alias zzz='zellij'
 alias qemu='qemu-system-x86_64'
+
+alias gs='git status'
+alias gc='git commit -m'
+alias gw='git worktree'
+
+alias vimt='nvim $(mktemp)'

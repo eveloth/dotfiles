@@ -21,3 +21,10 @@ setopt CORRECT
 # For example CTRL+A will take you to the beginning of the line,
 # CRTL+U will delete everything to the beginning of the line etc.
 bindkey -e
+
+# Edit command buffer
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x' edit-command-line
+
+autoload zmv
