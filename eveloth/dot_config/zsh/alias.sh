@@ -38,3 +38,12 @@ alias gc='git commit -m'
 alias gw='git worktree'
 
 alias vimt='nvim $(mktemp)'
+
+alias rc='sudo rc-service'
+alias urc='rc-service -U'
+alias rca='sudo rc-update add'
+alias rcd='sudo rc-update del'
+alias urca='rc-update -U add'
+alias urcd='rc-update -U del'
+
+alias yap='nvim $(date +%F).md'
