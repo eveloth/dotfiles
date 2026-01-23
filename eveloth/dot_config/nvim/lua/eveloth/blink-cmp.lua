@@ -3,6 +3,7 @@ local M = {
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 		"folke/lazydev.nvim",
+		"moyiz/blink-emoji.nvim",
 	},
 	version = "1.*",
 	opts = {},
@@ -22,6 +23,9 @@ M.config = function()
 			enabled = true,
 		},
 		completion = {
+			-- trigger = {
+			-- 	show_in_snippet = false,
+			-- },
 			menu = {
 				auto_show = true,
 				border = "rounded",
@@ -41,11 +45,13 @@ M.config = function()
 			},
 		},
 		sources = {
-			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+			default = { "lazydev", "lsp", "path", "snippets", "buffer", "emoji" },
 			providers = {
 				lsp = {
 					-- make LSP top priority
 					score_offset = 90,
+					-- otherwise too many irrelevant matches
+					-- max_items = 4,
 				},
 				lazydev = {
 					name = "LazyDev",
@@ -53,7 +59,31 @@ M.config = function()
 					-- ..but lazydev even higher
 					score_offset = 100,
 				},
+
+				emoji = {
+					module = "blink-emoji",
+					name = "Emoji",
+					score_offset = 10, -- Tune by preference
+					opts = {
+						insert = true, -- Insert emoji (default) or complete its name
+						---@type string|table|fun():table
+						trigger = function()
+							return { ":" }
+						end,
+					},
+					should_show_items = function()
+						return vim.tbl_contains(
+							-- Enable emoji completion only for git commits and markdown.
+							-- By default, enabled for all file-types.
+							{ "gitcommit", "markdown" },
+							vim.o.filetype
+						)
+					end,
+				},
 			},
+		},
+		snippets = {
+			preset = "default",
 		},
 	})
 end
