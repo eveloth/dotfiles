@@ -42,5 +42,4 @@ keymap({ "n", "o", "x" }, "<s-h>", "^", opts)
 keymap({ "n", "o", "x" }, "<s-l>", "g_", opts)
 
 -- Drop selection
-keymap({ "n", "o", "x" }, "<C-_>", ":noh<CR>", opts)
-
+keymap({ "n", "o", "x" }, "<C-/>", ":noh<CR>", opts)
