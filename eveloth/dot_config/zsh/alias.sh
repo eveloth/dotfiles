@@ -47,3 +47,8 @@ alias urca='rc-update -U add'
 alias urcd='rc-update -U del'
 
 alias yap='nvim $(date +%F).md'
+
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+}

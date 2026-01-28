@@ -64,6 +64,11 @@ sconfig 'yc.sh'
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_ROOT=${HOME}/dotnet
 
+# bat -plman won't work, this is how you unbreak this (thanks https://askubuntu.com/a/1506718)
+# also use builtin pager since search is broken for me in `less` (idk why)
+export MANPAGER="sh -c 'col -bx | bat -l man -p --pager=builtin'"
+export MANROFFOPT="-c"
+
 # This checks if the shell is being run in the interactive mode.
 # '$-' is a variable that contains current shell options in a form of a compressed string ()
 # where 'i' denotes 'interactive'. Here we check whether that string *doesn't* contain 'i' in it,
