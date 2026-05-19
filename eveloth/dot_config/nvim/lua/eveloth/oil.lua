@@ -8,7 +8,16 @@ local M = {
 }
 
 function M.config()
-	require("oil").setup()
+	---@class oil.SetupOpts
+	opts = {
+		keymaps = {
+			["gp"] = { "actions.yank_entry", mode = "n" },
+		},
+		view_options = {
+			show_hidden = true,
+		},
+	}
+	require("oil").setup(opts)
 	local wk = require("which-key")
 	wk.add({
 		"<leader>dr",
