@@ -73,8 +73,10 @@ function M.config()
 			-- enables syntax highlighting and other treesitter features
 			vim.treesitter.start(buf, language)
 
-			-- enables treesitter based indentation
-			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			-- only enable treesitter indentation if indent queries exist for this language
+			if vim.treesitter.query.get(language, "indents") then
+				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end
 		end,
 	})
 
