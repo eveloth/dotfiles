@@ -69,6 +69,13 @@ function M.config()
 		},
 	})
 
+	local function printInspect()
+		local output = vim.api.nvim_exec2("Inspect", { output = true })
+		snacks.win({
+			text = output.output,
+		})
+	end
+
 	local wk = require("which-key")
 
 	wk.add({
@@ -80,9 +87,15 @@ function M.config()
 			desc = "Toggle scratch",
 		},
 		{ "<leader>f", group = "Find..." },
-		{ "<leader>ff", snacks.picker.files, desc = "Files" },
+		-- {
+		-- 	"<leader>ff",
+		-- 	function()
+		-- 		snacks.picker.files({ hidden = true, ignored = true })
+		-- 	end,
+		-- 	desc = "Files",
+		-- },
 		{ "<leader>fs", Snacks.scratch.select, desc = "Scratches" },
-		{ "<leader>ft", snacks.picker.grep, desc = "Grep" },
+		-- { "<leader>ft", snacks.picker.grep, desc = "Grep" },
 		{ "<leader>fc", snacks.picker.colorschemes, desc = "Colorschemes" },
 		{ "<leader>fb", snacks.picker.git_branches, desc = "Git branches" },
 		{ "<leader>bb", snacks.picker.buffers, desc = "Buffers" },
@@ -97,6 +110,7 @@ function M.config()
 			desc = "Lazygit",
 		},
 		{ "<c-\\>", toggleTerminal(snacks), mode = { "n", "v", "t" }, desc = "Floating" },
+		{ "<leader>fi", printInspect },
 	})
 end
 

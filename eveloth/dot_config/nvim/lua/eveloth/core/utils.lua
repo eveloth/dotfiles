@@ -23,3 +23,20 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 		vim.opt_local.shada = ""
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+	pattern = "*",
+	callback = function()
+		local clients = vim.lsp.get_clients({ name = "roslyn" })
+		if not clients or #clients == 0 then
+			return
+		end
+
+		local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
+		local buffers = vim.lsp.get_buffers_by_client_id(ctx.client_id)
+		for _, buf in ipairs(buffers) do
+			local params = { textDocument = vim.lsp.util.make_text_document_params(buf) }
+			client:request("textDocument/diagnostic", params, nil, buf)
+		end
+	end,
+})

@@ -1,75 +1,82 @@
 local M = {
 	"nvim-treesitter/nvim-treesitter",
 	event = { "BufReadPost", "BufNewFile" },
+	branch = "main",
 	build = ":TSUpdate",
 	dependencies = {
 		"folke/which-key.nvim",
 	},
-}
-
-function M.config()
-	require("nvim-treesitter.configs").setup({
-		ensure_installed = {
-			"lua",
-			"markdown",
-			"markdown_inline",
-			"bash",
-			"python",
-			"c_sharp",
-			"ocaml",
-			"c",
-			"go",
-			"terraform",
-			"hcl",
-			"ruby",
-			"toml",
-			"json",
-			"gomod",
-			"sql",
-			"hyprlang",
-			"asm",
-			"cmake",
-			"desktop",
-			"fsharp",
-			"git_config",
-			"gitignore",
-			"html",
-			"nasm",
-			"nginx",
-			"proto",
-			"rasi",
-			"rust",
-			"ssh_config",
-			"svelte",
-			"vim",
-			"yuck",
-			"regex",
-		},
-		sync_install = false,
+	opts = {
 		auto_install = true,
 		highlight = { enable = true },
 		indent = { enable = true },
-		modules = {},
-		ignore_install = {},
-	})
+	},
+}
 
-	local parsers = require("nvim-treesitter.parsers").get_parser_configs()
+function M.config()
+	require("nvim-treesitter").setup()
 
-	-- This should be my first plugin!!
-	-- Highlight groups are being reset after colorscheme applies;
-	-- this means that these groups should either be set after that or with
-	-- an autocommand
-	---@diagnostic disable-next-line: inject-field
-	parsers.use = {
-		install_info = {
-			url = "~/repos/gentoo/tree-sitter-use/",
-			files = { "src/parser.c" },
-			branch = "main",
-		},
-		filetypes = "use",
+	local parsers = {
+		"lua",
+		"markdown",
+		"markdown_inline",
+		"bash",
+		"python",
+		"c_sharp",
+		"ocaml",
+		"c",
+		"go",
+		"terraform",
+		"hcl",
+		"ruby",
+		"toml",
+		"json",
+		"gomod",
+		"sql",
+		"hyprlang",
+		"asm",
+		"cmake",
+		"desktop",
+		"fsharp",
+		"git_config",
+		"gitignore",
+		"html",
+		"nasm",
+		"nginx",
+		"proto",
+		"rasi",
+		"rust",
+		"ssh_config",
+		"svelte",
+		"vim",
+		"yuck",
+		"regex",
+		"printf",
+		"qmljs",
 	}
+	require("nvim-treesitter").install(parsers)
 
-	vim.treesitter.language.register("use", "use")
+	vim.api.nvim_create_autocmd("FileType", {
+		callback = function(args)
+			local buf, filetype = args.buf, args.match
+
+			local language = vim.treesitter.language.get_lang(filetype)
+			if not language then
+				return
+			end
+
+			-- check if parser exists and load it
+			if not vim.treesitter.language.add(language) then
+				return
+			end
+
+			-- enables syntax highlighting and other treesitter features
+			vim.treesitter.start(buf, language)
+
+			-- enables treesitter based indentation
+			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		end,
+	})
 
 	local wk = require("which-key")
 	wk.add({
@@ -82,4 +89,15 @@ function M.config()
 		},
 	})
 end
+
+--local init = function()
+--	local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+--	local parsersToInstall = vim.iter(ensureInstalled)
+--		:filter(function(parser)
+--			return not vim.tbl_contains(alreadyInstalled, parser)
+--		end)
+--		:totable()
+--	require("nvim-treesitter").install(parsersToInstall)
+--end
+--
 return M

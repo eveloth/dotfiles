@@ -22,6 +22,7 @@ spec("eveloth.lualine")
 spec("eveloth.noice")
 spec("eveloth.smear-cursor")
 spec("eveloth.snacks")
+spec("eveloth.fff")
 spec("eveloth.illuminate")
 spec("eveloth.markview")
 
@@ -38,7 +39,9 @@ spec("eveloth.todo")
 spec("eveloth.trouble")
 spec("eveloth.gitsigns")
 spec("eveloth.gonvim")
+spec("eveloth.csharpls-extended")
 spec("eveloth.yuck")
+spec("eveloth.pkl")
 spec("eveloth.blink-compat")
 
 -- Not that it did work in the first place and also it brings lspconfig with it

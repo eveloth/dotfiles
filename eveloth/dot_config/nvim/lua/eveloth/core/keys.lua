@@ -43,3 +43,8 @@ keymap({ "n", "o", "x" }, "<s-l>", "g_", opts)
 
 -- Drop selection
 keymap({ "n", "o", "x" }, "<C-/>", ":noh<CR>", opts)
+
+keymap("n", "<leader>yr", function()
+	vim.fn.setreg("+", vim.fn.expand("%:p:."))
+	vim.notify("Copied relative path: " .. vim.fn.expand("%"))
+end, { desc = "Copy current buffer relative path" })

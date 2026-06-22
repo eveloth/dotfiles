@@ -1,7 +1,21 @@
 ---@class vim.diagnostic.Opts
 local diagnosticOpts = {
-	virtual_text = false,
-	virtual_lines = true,
+	severity_sort = true,
+
+	virtual_text = {
+		source = "if_many",
+		spacing = 2,
+		format = function(diagnostic)
+			local diagnostic_message = {
+				[vim.diagnostic.severity.ERROR] = diagnostic.message,
+				[vim.diagnostic.severity.WARN] = diagnostic.message,
+				[vim.diagnostic.severity.INFO] = diagnostic.message,
+				[vim.diagnostic.severity.HINT] = diagnostic.message,
+			}
+			return diagnostic_message[diagnostic.severity]
+		end,
+	},
+
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = " ",
@@ -11,9 +25,9 @@ local diagnosticOpts = {
 		},
 	},
 
-	severity_sort = true,
 	float = {
 		border = "rounded",
+		source = "if_many",
 	},
 	jump = {
 		float = true,
@@ -67,7 +81,8 @@ vim.lsp.config("*", {
 -- leaving this for backwards compatibility,
 -- it is a better idea to have just one conf file in {vim.rtp}/lsp
 local servers = {
-	"roslyn_ls",
+	-- "roslyn_ls",
+	"csharp_ls",
 	"basedpyright",
 	"lua_ls",
 	"cssls",
@@ -86,6 +101,8 @@ local servers = {
 	"zls",
 	"hls",
 	"emmet_language_server",
+	"taplo",
+	-- "qmlls",
 }
 
 for _, server in pairs(servers) do
