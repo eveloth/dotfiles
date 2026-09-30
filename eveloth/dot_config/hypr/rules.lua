@@ -2,6 +2,13 @@
 -- Rules are evaluated top to bottom.
 
 hl.window_rule({
+    -- Ignore maximize requests from apps (kitty opens maximized otherwise)
+    name  = "suppress-maximize-events",
+    match = { class = ".*" },
+    suppress_event = "maximize",
+})
+
+hl.window_rule({
     name  = "firefox-ws2",
     match = { class = "firefox" },
     workspace = "2 silent",

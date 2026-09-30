@@ -1,6 +1,4 @@
 -- Hyprland config entrypoint (migrated from hyprland.conf).
--- The old *.conf files are kept in this directory for reference only -- once
--- this hyprland.lua exists, Hyprland ignores hyprland.conf entirely.
 
 --------------------------------------------------------------------------------
 -- Core config
